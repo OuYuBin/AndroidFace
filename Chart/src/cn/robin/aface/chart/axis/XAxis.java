@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import cn.robin.aface.chart.adapter.XAxisAdapter;
 import cn.robin.aface.chart.component.XAxisComponent;
-import cn.robin.aface.chart.font.FontStyle;
 import cn.robin.aface.chart.utils.FontUtil;
 import cn.robin.aface.chart.utils.Transformer;
 import cn.robin.aface.chart.utils.ViewPortManager;
@@ -15,23 +14,23 @@ import cn.robin.aface.chart.utils.ViewPortManager;
  */
 public class XAxis extends BaseAxis {
 
-    protected Paint mXAxisPaint;
+    protected Paint mXAxisLinePaint;
+
+    protected Paint mXAxisLabelPaint;
 
     protected XAxisAdapter xAxisAdapter;
+
+    ViewPortManager viewPortManager;
 
     public void paintComponent(Canvas canvas) {
         xAxisAdapter = (XAxisAdapter) getChartComponentAdapter(XAxisAdapter.class);
         XAxisComponent xAxisComponent = (XAxisComponent) mChartComponent;
-        ViewPortManager viewPortManager = xAxisComponent.getViewPortManager();
+        viewPortManager = xAxisComponent.getViewPortManager();
+        mXAxisLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mXAxisLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mXAxisLinePaint.setColor(Color.BLACK);
 
-        mXAxisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mXAxisPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mXAxisPaint.setColor(Color.BLACK);
-        mXAxisPaint.setTypeface(xAxisComponent.getFontStyle().getTypeface());
-        mXAxisPaint.setTextSize(xAxisComponent.getFontStyle().getFontSize());
-
-
-        canvas.drawLine(viewPortManager.chartContentLeft(), viewPortManager.chartContentBottom() , viewPortManager.chartContentRight() , viewPortManager.chartContentBottom() , mXAxisPaint);
+        canvas.drawLine(viewPortManager.chartContentLeft(), viewPortManager.chartContentBottom(), viewPortManager.chartContentRight(), viewPortManager.chartContentBottom(), mXAxisLinePaint);
         drawAxisLabels(canvas);
 
     }
@@ -49,22 +48,26 @@ public class XAxis extends BaseAxis {
         }
         Transformer transformer = xAxisComponent.getTransformer();
         transformer.pointValuesToPixel(positions);
-        FontStyle fontStyle=xAxisComponent.getFontStyle();
-        Paint.FontMetrics fontMetrics=mXAxisPaint.getFontMetrics();
-        int fontHeight= FontUtil.getFontHeight(fontStyle);
-        ViewPortManager viewPortManager = xAxisComponent.getViewPortManager();
-//        canvas.drawLine(viewPortManager.chartContentLeft() +xAxisComponent.getOffsetLeft(), viewPortManager.chartContentBottom() -xAxisAdapter.getAxisOffset()-fontHeight, viewPortManager.chartContentRight() - xAxisComponent.getOffsetRight(), viewPortManager.chartContentBottom() -xAxisAdapter.getAxisOffset()- fontHeight, mXAxisPaint);
-        int baseLine=xAxisAdapter.getAxisOffset()-fontHeight;
-        int offset = xAxisAdapter.getAxisOffset()-fontHeight/2;
-        drawAxisLabels(canvas, offset, positions, labels);
+        //viewPortManager.
+        drawAxisLabels(canvas, positions, labels);
     }
 
-    private void drawAxisLabels(Canvas canvas, int offset, float[] positions, String[] labels) {
-        //XAxisComponent xAxisComponent = (XAxisComponent) mChartComponent;
-
+    private void drawAxisLabels(Canvas canvas, float[] positions, String[] labels) {
+        XAxisComponent xAxisComponent = (XAxisComponent) mChartComponent;
+        mXAxisLabelPaint = new Paint();
+        mXAxisLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mXAxisLabelPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mXAxisLabelPaint.setTypeface(xAxisComponent.getFontStyle().getTypeface());
+        mXAxisLabelPaint.setTextSize(xAxisComponent.getFontStyle().getFontSize());
+        //mXAxisLabelPaint.setTextAlign(Paint.Align.CENTER);
+        mXAxisLabelPaint.setColor(Color.WHITE);
+        int offset = FontUtil.calcFontHeight(xAxisComponent.getFontStyle());
         for (int i = 0; i < labels.length; i++) {
-            String label = labels[i];
-            canvas.drawText(label, positions[2 * i], positions[2 * i + 1] - offset, mXAxisPaint);
+            float x = positions[2 * i];
+            if (x <= viewPortManager.chartContentRight() && x >= viewPortManager.chartContentLeft()) {
+                String label = labels[i];
+                canvas.drawText(label, positions[2 * i], positions[2 * i + 1]+offset+5, mXAxisLabelPaint);
+            }
         }
     }
 }

@@ -21,7 +21,9 @@ public class BaseLineChartTouchListener implements IChartOnTouchListener {
 
     private int mTouchMode = NONE;
     private ViewPortManager mViewPortManager;
-    private ChartMatrix mChartMatrix;
+
+    //--原始图表矩阵对象
+    private ChartMatrix mChartMatrix = new ChartMatrix();
 
     private ChartMatrix mSavedChartMatrix = new ChartMatrix();
     private PointF mTouchStartPointF = new PointF();
@@ -41,8 +43,12 @@ public class BaseLineChartTouchListener implements IChartOnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             //Log.d("ChartListener", String.valueOf((event.getAction() & MotionEvent.ACTION_MASK)));
+            case MotionEvent.ACTION_DOWN:
+                saveCurrentOfTouch(event);
+                break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 if (event.getPointerCount() >= 2) {
+                    ((BaseChartView) mAdapter).disableScroll();
                     //--记录当前
                     saveCurrentOfTouch(event);
                     mXDist = getXDist(event);
@@ -55,7 +61,6 @@ public class BaseLineChartTouchListener implements IChartOnTouchListener {
                         break;
                     }
                     mPointDist = getPointDist(event);
-                    //Log.d("ChartListener", mPointDist+"");
                     //--两指缩放
                     if (mPointDist > 10f) {
                         mTouchMode = PINCH_ZOOM;
@@ -64,16 +69,13 @@ public class BaseLineChartTouchListener implements IChartOnTouchListener {
 //                        } else {
 //                            mTouchMode = Y_ZOOM;
 //                        }
-                    } else {
-                        //--两指拖动
-                        if (mXDist <= 5)
-                            mTouchMode = DRAG;
                     }
                     calcMidPoint(mTouchPointCenter, event);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
                 Log.d("ChartListener", "+++++" + mTouchMode + "");
+                ((BaseChartView) mAdapter).disableScroll();
                 if (mTouchMode == X_ZOOM || mTouchMode == Y_ZOOM || mTouchMode == PINCH_ZOOM) {
                     onZoom(event);
                 } else if (mTouchMode == DRAG) {
@@ -82,7 +84,7 @@ public class BaseLineChartTouchListener implements IChartOnTouchListener {
                 }
                 break;
         }
-        this.mViewPortManager.refresh(mChartMatrix, (BaseChartView) mAdapter, true);
+        this.mChartMatrix = (ChartMatrix) this.mViewPortManager.refresh(mChartMatrix, (BaseChartView) mAdapter, true);
         return true;
     }
 

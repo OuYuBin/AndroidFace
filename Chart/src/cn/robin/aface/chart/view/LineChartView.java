@@ -62,7 +62,7 @@ public class LineChartView extends BaseChartView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(Color.GRAY);
+        canvas.drawColor(Color.rgb(32,32,32));
         drawChart(canvas);
     }
 

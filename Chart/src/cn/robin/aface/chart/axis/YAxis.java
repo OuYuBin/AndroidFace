@@ -4,9 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import cn.robin.aface.chart.adapter.YAxisAdapter;
-import cn.robin.aface.chart.component.IChartComponent;
-import cn.robin.aface.chart.component.XAxisComponent;
 import cn.robin.aface.chart.component.YAxisComponent;
+import cn.robin.aface.chart.utils.FontUtil;
 import cn.robin.aface.chart.utils.Transformer;
 import cn.robin.aface.chart.utils.ViewPortManager;
 
@@ -20,22 +19,20 @@ public class YAxis extends BaseAxis {
 
     private Paint mYAxisPaint;
 
+    private Paint mYAxisLablePaint;
+
     private YAxisAdapter yAxisAdapter;
+
+    private ViewPortManager viewPortManager;
 
 
     public void paintComponent(Canvas canvas) {
         mYAxisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mYAxisPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mYAxisPaint.setColor(Color.GREEN);
-
+        mYAxisPaint.setColor(Color.BLACK);
         yAxisAdapter = (YAxisAdapter) getChartComponentAdapter(YAxisAdapter.class);
-        ViewPortManager viewPortManager = mChartComponent.getViewPortManager();
-        YAxisComponent yAxisComponent = (YAxisComponent) mChartComponent;
-
-        //--偏移量带入进行绘制
-        int offset=0;
-
-        canvas.drawLine(viewPortManager.chartContentLeft()+yAxisComponent.getOffsetLeft(), viewPortManager.chartContentTop()-yAxisComponent.getOffsetTop(), viewPortManager.chartContentLeft()+yAxisComponent.getOffsetLeft(), viewPortManager.chartContentBottom()-yAxisComponent.getOffsetBottom(), mYAxisPaint);
+        viewPortManager = mChartComponent.getViewPortManager();
+        canvas.drawLine(viewPortManager.chartContentLeft(), viewPortManager.chartContentTop(), viewPortManager.chartContentLeft(), viewPortManager.chartContentBottom(), mYAxisPaint);
         drawAxisLabels(canvas);
 
     }
@@ -52,15 +49,25 @@ public class YAxis extends BaseAxis {
         }
         Transformer transformer = mChartComponent.getTransformer();
         transformer.pointValuesToPixel(positions);
-        int offset=0;
-        drawAxisLabels(canvas, offset*2, positions);
+
+        drawAxisLabels(canvas, positions);
 
     }
 
-    private void drawAxisLabels(Canvas canvas, int offset, float[] positions) {
+    private void drawAxisLabels(Canvas canvas, float[] positions) {
+
+        YAxisComponent yAxisComponent = (YAxisComponent) mChartComponent;
+        mYAxisLablePaint = new Paint();
+        mYAxisLablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mYAxisLablePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mYAxisLablePaint.setTypeface(yAxisComponent.getFontStyle().getTypeface());
+        mYAxisLablePaint.setTextSize(yAxisComponent.getFontStyle().getFontSize());
+        mYAxisLablePaint.setColor(Color.WHITE);
+        mYAxisLablePaint.setTextAlign(Paint.Align.CENTER);
+        float offset = FontUtil.calcFontWidth(yAxisComponent.getFontStyle(),yAxisAdapter.getLongestLabel());
         for (int i = 0; i < yAxisAdapter.getEntries().length; i++) {
             String text = String.valueOf(yAxisAdapter.getEntries()[i]);
-            canvas.drawText(text, offset, positions[2 * i + 1], mYAxisPaint);
+            canvas.drawText(text, viewPortManager.chartContentLeft() - offset-5, positions[2 * i + 1], mYAxisLablePaint);
         }
     }
 

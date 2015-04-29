@@ -10,6 +10,7 @@ import cn.robin.aface.chart.component.LineChartComponent;
 import cn.robin.aface.chart.component.XAxisComponent;
 import cn.robin.aface.chart.component.YAxisComponent;
 import cn.robin.aface.chart.utils.Transformer;
+import cn.robin.aface.chart.utils.ViewPortManager;
 import cn.robin.aface.chart.view.IBaseChartView;
 import cn.robin.aface.core.runtime.IAdaptable;
 
@@ -46,7 +47,10 @@ public class BaseLineChart extends BaseChart {
     public void paintComponent(Canvas canvas) {
         drawXAxis(canvas);
         drawYAxis(canvas);
+        int clipRestoreCount=canvas.save();
+        canvas.clipRect(mChartComponent.getViewPortManager().getChartContentRect());
         drawData(canvas);
+        canvas.restoreToCount(clipRestoreCount);
     }
 
     public void drawXAxis(Canvas canvas) {
@@ -59,17 +63,26 @@ public class BaseLineChart extends BaseChart {
 
     private void drawData(Canvas canvas) {
         ChartAdapter chartAdapter = (ChartAdapter) mChartComponent.getAdapter(ChartAdapter.class);
+        ViewPortManager viewPortManager=mChartComponent.getViewPortManager();
         List entries = chartAdapter.getEntries();
 
         Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mPaint.setColor(Color.BLUE);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.YELLOW);
+        mPaint.setAntiAlias(true);
 
         for (int i = 0; i < entries.size(); i++) {
             float[] pts = (float[]) entries.get(i);
             Transformer transformer = mChartComponent.getTransformer();
             transformer.pointValuesToPixel(pts);
+
             for (int j = 0; j < pts.length; j += 2) {
+
+                if (j != 0 && viewPortManager.isOffContentLeft(pts[j-1])
+                        && viewPortManager.isOffContentTop(pts[j + 1])
+                        && viewPortManager.isOffContentBottom(pts[j + 1]))
+                continue;
+
                 if (j + 3 > pts.length)
                     break;
 

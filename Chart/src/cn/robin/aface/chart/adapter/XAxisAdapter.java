@@ -17,15 +17,7 @@ public class XAxisAdapter extends BaseAxisAdapter {
 
     public XAxisAdapter(XAxisComponent xAxisComponent) {
         super(xAxisComponent);
-        computeXAxisOffset();
         computeXAxis();
-    }
-
-    private void computeXAxisOffset() {
-        XAxisComponent xAxisComponent = (XAxisComponent) mChartComponent;
-        FontStyle fontStyle=xAxisComponent.getFontStyle();
-        int fontHeight=FontUtil.getFontHeight(fontStyle);
-        //setAxisOffset(fontHeight+xAxisComponent.getOffsetBottom());
     }
 
     private void computeXAxis() {

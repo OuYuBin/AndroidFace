@@ -62,6 +62,14 @@ public class ViewPortManager {
         return mChartContentRect.right;
     }
 
+    public float chartWidth(){
+        return mChartContentRect.width();
+    }
+
+    public float chartHeight(){
+        return mChartContentRect.height();
+    }
+
     public float getChartHeight() {
         return mChartHeight;
     }
@@ -82,6 +90,37 @@ public class ViewPortManager {
     public void setTouchMatrix(ChartMatrix mTouchMatrix) {
         this.mTouchMatrix = mTouchMatrix;
     }
+
+
+    public boolean isOffContentLeft(float point){
+        if(point<mChartContentRect.left){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isOffContentRight(float point){
+        if(point>mChartContentRect.right){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isOffContentTop(float point){
+        if(point<mChartContentRect.top){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isOffContentBottom(float point){
+        if(point>mChartContentRect.bottom){
+            return true;
+        }
+        return false;
+    }
+
+
 
     public Matrix refresh(Matrix newMatrix, BaseChartView chart, boolean invalidate) {
 

@@ -7,18 +7,18 @@ import cn.robin.aface.chart.component.IChartComponent;
  */
 public class BaseAxisAdapter extends BaseChartComponentAdapter{
 
-    private int mAxisOffset;
+    private String mLongestLabel;
 
 
     public BaseAxisAdapter(IChartComponent chartComponent) {
         super(chartComponent);
     }
 
-    public int getAxisOffset() {
-        return mAxisOffset;
+    public String getLongestLabel() {
+        return mLongestLabel;
     }
 
-    public void setAxisOffset(int axisOffset) {
-        this.mAxisOffset = axisOffset;
+    public void setLongestLabel(String longestLabel) {
+        this.mLongestLabel = longestLabel;
     }
 }

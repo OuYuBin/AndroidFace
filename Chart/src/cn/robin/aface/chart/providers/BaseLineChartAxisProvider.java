@@ -12,7 +12,7 @@ public class BaseLineChartAxisProvider implements ILineChartAxisProvider {
     @Override
     public float[] getXAxisOffsets() {
         float[] offsets = new float[] {
-                0,AXIS_OFFSET_BOTTOM
+                0f,AXIS_OFFSET_BOTTOM
         } ;
         return offsets;
     }
@@ -20,14 +20,14 @@ public class BaseLineChartAxisProvider implements ILineChartAxisProvider {
     @Override
     public float[] getYAxisOffsets() {
         float[] offsets = new float[]{
-                AXIS_OFFSET_LEFT,0
+                0f,AXIS_OFFSET_RIGHT
         } ;
         return offsets;
     }
 
 
     public FontStyle getFontStyle(){
-        FontStyle fontStyle=new FontStyle(20);
+        FontStyle fontStyle=new FontStyle(15);
         return fontStyle;
     }
 }

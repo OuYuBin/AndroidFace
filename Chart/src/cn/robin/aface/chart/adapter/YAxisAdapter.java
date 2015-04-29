@@ -11,7 +11,7 @@ import cn.robin.aface.chart.utils.ViewPortManager;
  * Created by robin on 15-3-23.
  * Y轴适配器,根据提供提供对模型进行属性填充后通过该适配器进行对应适配供给图形使用
  */
-public class YAxisAdapter extends BaseChartComponentAdapter {
+public class YAxisAdapter extends BaseAxisAdapter {
 
 
     public float[] mEntries;
@@ -20,7 +20,19 @@ public class YAxisAdapter extends BaseChartComponentAdapter {
         super(yAxisComponent);
         //--在构造函数中就对模型信息进行适配
         computeAxis();
+        computeLongestLabel();
     }
+
+    private void computeLongestLabel() {
+        String longestLabel="";
+        for(int i=0;i<mEntries.length;i++){
+            String label=String.valueOf(mEntries[i]);
+            if(label.length()>longestLabel.length())
+                longestLabel=label;
+        }
+        setLongestLabel(longestLabel);
+    }
+
 
     //--适配图形最大最小点位
     public void computeAxis() {
@@ -28,13 +40,6 @@ public class YAxisAdapter extends BaseChartComponentAdapter {
         yAxisComponent.getFontStyle();
         computeValueAxis(yAxisComponent);
     }
-
-
-
-
-
-
-
 
     //--等分切割轴线
     private void computeValueAxis(YAxisComponent yAxisComponent) {

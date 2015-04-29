@@ -3,6 +3,7 @@ package cn.robin.aface.chart.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewParent;
 import cn.robin.aface.chart.IBaseChartElement;
 import cn.robin.aface.chart.listeners.IChartOnTouchListener;
 import cn.robin.aface.chart.providers.IChartContentProvider;
@@ -96,5 +97,12 @@ public class BaseChartView extends View implements IBaseChartView {
 
     public ViewPortManager getViewPortManager() {
         return mViewPortManager;
+    }
+
+
+    public void disableScroll(){
+        ViewParent parent=this.getParent();
+        if(parent!=null)
+            parent.requestDisallowInterceptTouchEvent(false);
     }
 }

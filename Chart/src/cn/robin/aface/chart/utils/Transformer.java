@@ -38,11 +38,11 @@ public class Transformer {
     }
 
     //--数据信息向图形像素进行矩阵适配
-    public void prepareMatrixValuePx(float xChartMin, float deltaX, float yChartMin,float deltaY) {
+    public void prepareMatrixValuePx(float xChartMin, float deltaX, float yChartMin, float deltaY) {
 
         //--计算缩放比例
-        float scaleX = (float) (mViewPortManager.getChartWidth() / deltaX);
-        float scaleY = (float) (mViewPortManager.getChartHeight() / deltaY);
+        float scaleX = (mViewPortManager.chartWidth() / deltaX);
+        float scaleY = (mViewPortManager.chartHeight() / deltaY);
 
         mMatrixValueToPx.reset();
         //--图形向指定坐标方向平移
@@ -53,10 +53,10 @@ public class Transformer {
 //        //--偏移量生成
 //        mMatrixOffset.reset();
 //        mMatrixOffset.postTranslate(0, mViewPortManager.getChartHeight());
-        prepareMatrixOffset(false);
+        //prepareMatrixOffset(false);
     }
 
-    public void prepareMatrixOffset(boolean inverted){
+    public void prepareMatrixOffset(boolean inverted) {
         mMatrixOffset.reset();
         mMatrixOffset.postTranslate(mViewPortManager.chartContentLeft(), mViewPortManager.chartContentBottom());
         //mMatrixOffset.postScale(1.0f,-1.0f);

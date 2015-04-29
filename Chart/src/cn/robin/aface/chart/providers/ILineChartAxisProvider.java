@@ -8,11 +8,11 @@ import cn.robin.aface.chart.font.FontStyle;
  */
 public interface ILineChartAxisProvider {
 
-    public static final float AXIS_OFFSET_LEFT=10f;
+    public static final float AXIS_OFFSET_LEFT=20f;
 
-    public static final float AXIS_OFFSET_RIGHT=30f;
+    public static final float AXIS_OFFSET_RIGHT=20f;
 
-    public static final float AXIS_OFFSET_TOP=30f;
+    public static final float AXIS_OFFSET_TOP=20f;
 
     public static final float AXIS_OFFSET_BOTTOM=20f;
 

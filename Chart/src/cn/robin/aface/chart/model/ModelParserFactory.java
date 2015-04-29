@@ -5,10 +5,12 @@ import cn.robin.aface.chart.IBaseChartElement;
 import cn.robin.aface.chart.component.LineChartComponent;
 import cn.robin.aface.chart.component.XAxisComponent;
 import cn.robin.aface.chart.component.YAxisComponent;
+import cn.robin.aface.chart.font.FontStyle;
 import cn.robin.aface.chart.model.vistor.ChartDataVisitor;
 import cn.robin.aface.chart.providers.ILineChartAxisProvider;
 import cn.robin.aface.chart.providers.ILineChartContentProvider;
 import cn.robin.aface.chart.providers.ILineChartLabelProvider;
+import cn.robin.aface.chart.utils.FontUtil;
 import cn.robin.aface.chart.view.IBaseChartView;
 import cn.robin.aface.chart.view.LineChartView;
 
@@ -44,6 +46,7 @@ public class ModelParserFactory {
         ILineChartLabelProvider lineChartLabelProvider = (ILineChartLabelProvider) chartView.getChartLabelProvider();
 
         IBaseChartElement chartElement = chartView.getChartElement();
+
         Object[] objects = chartDataSet.getChartDatas().toArray(new Object[0]);
         int xAxisValue = lineChartContentProvider.getXAxisCount(objects);
         int xDeltaVal = xAxisValue - 0;
@@ -51,8 +54,11 @@ public class ModelParserFactory {
         //--根据偏移量及轴字体高度重新定义图表矩形对象参数
         float[] xAxisOffset = lineChartAxisProvider.getXAxisOffsets();
         float[] yAxisOffset = lineChartAxisProvider.getYAxisOffsets();
-        //int xLableHeight=lineChartAxisProvider.getFontStyle();
-        chartView.getViewPortManager().restrainViewPort(yAxisOffset[0], xAxisOffset[0], yAxisOffset[1], xAxisOffset[1]);
+
+        FontStyle fontStyle = lineChartAxisProvider.getFontStyle();
+        float labelHeight = FontUtil.calcFontHeight(fontStyle);
+        float labelWidth = FontUtil.calcFontWidth(fontStyle, String.valueOf(yMaxVal));
+        chartView.getViewPortManager().restrainViewPort(yAxisOffset[0] + labelWidth, xAxisOffset[0], yAxisOffset[1], xAxisOffset[1] + labelHeight);
 
 
         LineChartComponent lineChartComponent = (LineChartComponent) chartElement.getComponent();
@@ -68,11 +74,6 @@ public class ModelParserFactory {
         List<String> list = lineChartContentProvider.getXVals(objects);
         xAxisComponent.setModulus(lineChartContentProvider.getXAxisModulus(objects));
         xAxisComponent.setXMaxVal(xAxisValue);
-//        int[] xAxisOffsets = lineChartAxisProvider.getXAxisOffsets();
-//        xAxisComponent.setOffsetTop(xAxisOffsets[0]);
-//        xAxisComponent.setOffsetLeft(xAxisOffsets[1]);
-//        xAxisComponent.setOffsetRight(xAxisOffsets[2]);
-//        xAxisComponent.setOffsetBottom(xAxisOffsets[3]);
         xAxisComponent.setFontStyle(lineChartAxisProvider.getFontStyle());
         //xAxisComponent.setOffset(lineChartLabelProvider.getXAxisOffset());
         xAxisComponent.setEntries(list);
@@ -80,13 +81,7 @@ public class ModelParserFactory {
         YAxisComponent yAxisComponent = (YAxisComponent) ((BaseLineChart) chartElement).getYAxis().getComponent();
         yAxisComponent.setYMaxVal(yMaxVal);
         yAxisComponent.setYMinVal(yMinVal);
+        yAxisComponent.setFontStyle(lineChartAxisProvider.getFontStyle());
         yAxisComponent.setLabelCount(lineChartContentProvider.getYAxisCount(objects));
-//        int[] yAxisOffsets = lineChartAxisProvider.getYAxisOffsets();
-//        yAxisComponent.setOffsetTop(yAxisOffsets[0]);
-//        yAxisComponent.setOffsetLeft(yAxisOffsets[1]);
-//        yAxisComponent.setOffsetRight(yAxisOffsets[2]);
-//        yAxisComponent.setOffsetBottom(yAxisOffsets[3]);
-
-        //yAxisComponent.setOffset(lineChartLabelProvider.getYAxisOffset());
     }
 }
