@@ -3,6 +3,7 @@ package cn.robin.aface.chart;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import cn.robin.aface.chart.adapter.ChartAdapter;
 import cn.robin.aface.chart.axis.XAxis;
 import cn.robin.aface.chart.axis.YAxis;
@@ -47,7 +48,7 @@ public class BaseLineChart extends BaseChart {
     public void paintComponent(Canvas canvas) {
         drawXAxis(canvas);
         drawYAxis(canvas);
-        int clipRestoreCount=canvas.save();
+        int clipRestoreCount = canvas.save();
         canvas.clipRect(mChartComponent.getViewPortManager().getChartContentRect());
         drawData(canvas);
         canvas.restoreToCount(clipRestoreCount);
@@ -62,33 +63,55 @@ public class BaseLineChart extends BaseChart {
     }
 
     private void drawData(Canvas canvas) {
+        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
         ChartAdapter chartAdapter = (ChartAdapter) mChartComponent.getAdapter(ChartAdapter.class);
-        ViewPortManager viewPortManager=mChartComponent.getViewPortManager();
+        ViewPortManager viewPortManager = mChartComponent.getViewPortManager();
         List entries = chartAdapter.getEntries();
 
         Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(Color.YELLOW);
         mPaint.setAntiAlias(true);
+        mPaint.setSubpixelText(true);
+        mPaint.setFilterBitmap(true);
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(Color.rgb(0, 144, 255));
+        mPaint.setAntiAlias(true);
+        mPaint.setStrokeWidth(2.0f);
+
+        Paint circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        circlePaint.setAntiAlias(true);
+        circlePaint.setSubpixelText(true);
+        circlePaint.setFilterBitmap(true);
+        circlePaint.setColor(Color.WHITE);
+        circlePaint.setAntiAlias(true);
+        circlePaint.setStrokeWidth(2.0f);
 
         for (int i = 0; i < entries.size(); i++) {
             float[] pts = (float[]) entries.get(i);
             Transformer transformer = mChartComponent.getTransformer();
             transformer.pointValuesToPixel(pts);
 
+            if (i > 0) {
+                mPaint.setColor(Color.rgb(255, 148, 0));
+            }
+
             for (int j = 0; j < pts.length; j += 2) {
 
-                if (j != 0 && viewPortManager.isOffContentLeft(pts[j-1])
+                if (j != 0 && viewPortManager.isOffContentLeft(pts[j - 1])
                         && viewPortManager.isOffContentTop(pts[j + 1])
                         && viewPortManager.isOffContentBottom(pts[j + 1]))
-                continue;
+                    continue;
+                canvas.drawCircle(pts[j], pts[j + 1], 7.0f, circlePaint);
+                canvas.drawCircle(pts[j], pts[j + 1], 5.0f, mPaint);
 
-                if (j + 3 > pts.length)
+                if (j + 3 > pts.length) {
                     break;
+                }
+
 
                 canvas.drawLine(pts[j], pts[j + 1], pts[j + 2], pts[j + 3], mPaint);
             }
         }
+
     }
 
     public YAxis getYAxis() {
