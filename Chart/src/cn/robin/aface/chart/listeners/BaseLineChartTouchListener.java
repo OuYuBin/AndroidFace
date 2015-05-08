@@ -78,7 +78,8 @@ public class BaseLineChartTouchListener implements IChartOnTouchListener {
                 ((BaseChartView) mAdapter).disableScroll();
                 if (mTouchMode == X_ZOOM || mTouchMode == Y_ZOOM || mTouchMode == PINCH_ZOOM) {
                     onZoom(event);
-                } else if (mTouchMode == DRAG) {
+                }
+                else if (mTouchMode == DRAG) {
                     onDrag(event);
                     //Log.d("ChartListener", "+++++" + DRAG+"");
                 }

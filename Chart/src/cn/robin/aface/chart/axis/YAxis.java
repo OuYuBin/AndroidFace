@@ -29,7 +29,7 @@ public class YAxis extends BaseAxis {
     public void paintComponent(Canvas canvas) {
         mYAxisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mYAxisPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mYAxisPaint.setColor(Color.rgb(50,50,50));
+        mYAxisPaint.setColor(Color.rgb(50, 50, 50));
         yAxisAdapter = (YAxisAdapter) getChartComponentAdapter(YAxisAdapter.class);
         viewPortManager = mChartComponent.getViewPortManager();
         canvas.drawLine(viewPortManager.chartContentLeft(), viewPortManager.chartContentTop(), viewPortManager.chartContentLeft(), viewPortManager.chartContentBottom(), mYAxisPaint);
@@ -67,9 +67,10 @@ public class YAxis extends BaseAxis {
         float offset = FontUtil.calcFontWidth(yAxisComponent.getFontStyle(), yAxisAdapter.getLongestLabel());
         for (int i = 0; i < yAxisAdapter.getEntries().length; i++) {
             String text = String.valueOf(yAxisAdapter.getEntries()[i]);
-            canvas.drawText(text, viewPortManager.chartContentLeft() - offset - 5, positions[2 * i + 1], mYAxisLablePaint);
-            if(i>0)
-            canvas.drawLine(viewPortManager.chartContentLeft(), positions[2 * i + 1], viewPortManager.chartContentRight(), positions[2 * i + 1], mYAxisPaint);
+            if (positions[2 * i + 1] <= viewPortManager.chartContentBottom())
+                canvas.drawText(text, viewPortManager.chartContentLeft() - offset - 5, positions[2 * i + 1], mYAxisLablePaint);
+            if (i > 0)
+                canvas.drawLine(viewPortManager.chartContentLeft(), positions[2 * i + 1], viewPortManager.chartContentRight(), positions[2 * i + 1], mYAxisPaint);
         }
     }
 

@@ -70,8 +70,8 @@ public class XAxis extends BaseAxis {
             float x = positions[2 * i];
             if (x <= viewPortManager.chartContentRight() && x >= viewPortManager.chartContentLeft()) {
                 String label = labels[i];
-                canvas.drawText(label, positions[2 * i], positions[2 * i + 1]+offset+5, mXAxisLabelPaint);
-                canvas.drawLine(positions[2 * i],positions[2 * i + 1],positions[2 * i],viewPortManager.chartContentTop(),mXAxisGridLinePaint);
+                canvas.drawText(label, positions[2 * i], viewPortManager.chartContentBottom()+offset+5, mXAxisLabelPaint);
+                canvas.drawLine(positions[2 * i],viewPortManager.chartContentBottom(),positions[2 * i],viewPortManager.chartContentTop(),mXAxisGridLinePaint);
             }
         }
     }
