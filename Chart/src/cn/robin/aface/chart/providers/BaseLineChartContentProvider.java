@@ -35,7 +35,7 @@ public class BaseLineChartContentProvider implements ILineChartContentProvider {
 
     //--指定X坐标间距系数
     public int getXAxisModulus(Object[] objects) {
-        return 3;
+        return 10;
     }
 
     public int getYAxisCount(Object[] objects) {

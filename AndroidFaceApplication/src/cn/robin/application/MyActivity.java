@@ -32,7 +32,7 @@ public class MyActivity extends Activity {
 
     public ChartDataSet createModel(){
         List list=new ArrayList();
-        for(int i=0;i<20;i++){
+        for(int i=0;i<60;i++){
             double k=Math.random()*100;
             Log.d("MyActivity", k + "");
             list.add(new ChartEntry(k,i));
@@ -40,7 +40,7 @@ public class MyActivity extends Activity {
         ChartData chartData1=new ChartData(list);
 
         List list1=new ArrayList();
-        for(int i=0;i<15;i++){
+        for(int i=0;i<80;i++){
             list1.add(new ChartEntry(Math.random()*100,i));
         }
         ChartData chartData2=new ChartData(list1);

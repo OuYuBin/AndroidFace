@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="xAxisLeftOffset" format="dimension"/>
+    <attr name="xAxisRightOffset" format="dimension"/>
+    <attr name="xAxisTopOffset" format="dimension"/>
+    <attr name="xAxisDownOffset" format="dimension"/>
+
+    <declare-styleable name="LineChartView">
+        <attr name="xAxisLeftOffset"/>
+        <attr name="xAxisRightOffset"/>
+        <attr name="xAxisTopOffset"/>
+    </declare-styleable>
+</resources>

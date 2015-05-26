@@ -1,12 +1,14 @@
 package cn.robin.aface.chart.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import cn.robin.aface.chart.BaseLineChart;
+import cn.robin.aface.chart.R;
 import cn.robin.aface.chart.listeners.BaseLineChartTouchListener;
 import cn.robin.aface.chart.model.ChartDataSet;
 import cn.robin.aface.chart.model.ChartModelManager;
@@ -19,12 +21,17 @@ public class LineChartView extends BaseChartView {
 
     protected ChartDataSet mChartDataSet;
 
+    public float xAxisLeftOffset;
+
     public LineChartView(Context context) {
         super(context);
     }
 
     public LineChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        TypedArray typedArray=context.obtainStyledAttributes(attrs, R.styleable.LineChartView);
+        xAxisLeftOffset=typedArray.getDimension(R.styleable.LineChartView_xAxisLeftOffset,15);
+        System.out.println("+++++++++"+xAxisLeftOffset);
     }
 
     public LineChartView(Context context, AttributeSet attrs, int defStyle) {
