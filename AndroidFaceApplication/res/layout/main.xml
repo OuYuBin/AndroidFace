@@ -5,7 +5,8 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:weightSum="1">
-    <cn.robin.aface.chart.view.LineChartView android:layout_width="fill_parent"
+    <cn.robin.aface.chart.view.LineChartView android:id="@+id/view"
+                                             android:layout_width="fill_parent"
                                              android:layout_height="fill_parent"/>
 </LinearLayout>
 
