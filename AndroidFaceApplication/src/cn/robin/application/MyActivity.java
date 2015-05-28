@@ -10,6 +10,7 @@ import cn.robin.aface.chart.providers.BaseChartLabelProvider;
 import cn.robin.aface.chart.providers.BaseLineChartAxisProvider;
 import cn.robin.aface.chart.providers.BaseLineChartContentProvider;
 import cn.robin.aface.chart.providers.BaseLineChartStyleLabelProvider;
+import cn.robin.aface.chart.view.LineChartView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class MyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        SampleChart lineChart= (SampleChart) findViewById(R.id.view);
+        LineChartView lineChart= (LineChartView) findViewById(R.id.view);
         lineChart.setChartContentProvider(new BaseLineChartContentProvider());
         lineChart.setChartLabelProvider(new BaseLineChartStyleLabelProvider());
         lineChart.setChartAxisProvider(new BaseLineChartAxisProvider());
