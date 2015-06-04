@@ -54,8 +54,8 @@ public class YAxis extends BaseAxis {
         mYAxisLablePaint = new Paint();
         mYAxisLablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mYAxisLablePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        //mYAxisLablePaint.setTypeface(yAxisComponent.getFontStyle().getTypeface());
-        mYAxisLablePaint.setTextSize(20);
+        mYAxisLablePaint.setTextSize(mYAxisComponentAdapter.getFontStyle(getComponent()).getFontSize());
+        mYAxisLablePaint.setTypeface(mYAxisComponentAdapter.getFontStyle(getComponent()).getTypeface());
         mYAxisLablePaint.setColor(Color.WHITE);
         mYAxisLablePaint.setTextAlign(Paint.Align.RIGHT);
         float offset = 2.0f;

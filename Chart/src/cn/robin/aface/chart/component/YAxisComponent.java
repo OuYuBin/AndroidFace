@@ -1,7 +1,7 @@
 package cn.robin.aface.chart.component;
 
 import cn.robin.aface.chart.adapter.YAxisComponentAdapter;
-import cn.robin.aface.core.annotations.TypeArrayAnnotation;
+import cn.robin.aface.chart.font.FontStyle;
 import cn.robin.aface.core.runtime.IAdaptable;
 
 /**
@@ -11,7 +11,7 @@ import cn.robin.aface.core.runtime.IAdaptable;
  */
 public class YAxisComponent extends AxisComponent {
 
-    @TypeArrayAnnotation(name = "labelCount", desc = "LabelCount", type = "Integer")
+    //@TypeArrayAnnotation(name = "labelCount", desc = "LabelCount", type = "Integer")
     public int mLabelCount;
 
     public YAxisComponent() {
@@ -27,6 +27,10 @@ public class YAxisComponent extends AxisComponent {
                 0f, 20f
         };
         return offsets;
+    }
+
+    public FontStyle getFontStyle(){
+        return new FontStyle(18);
     }
 
 }

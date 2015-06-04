@@ -1,5 +1,6 @@
 package cn.robin.aface.chart.adapter;
 
+import cn.robin.aface.chart.component.IChartComponent;
 import cn.robin.aface.chart.component.LineChartComponent;
 import cn.robin.aface.chart.component.XAxisComponent;
 import cn.robin.aface.chart.component.YAxisComponent;
@@ -8,6 +9,7 @@ import cn.robin.aface.chart.model.ChartData;
 import cn.robin.aface.chart.model.ChartDataSet;
 import cn.robin.aface.chart.model.ChartEntry;
 import cn.robin.aface.chart.model.IUserChartData;
+import cn.robin.aface.chart.utils.MathUtil;
 
 /**
  * Created by robin on 15-6-2.
@@ -67,29 +69,55 @@ public class LineChartComponentAdapter extends ChartComponentAdapter {
         return Math.abs(yMaxVal - yMinVal);
     }
 
-    public float getYMaxVal(Object object){
-        float value;
+
+    public double getYMaxVal(Object object) {
+        IChartComponent chartComponent = (IChartComponent) object;
+        ChartDataSet chartDataSet = chartComponent.getChartDataSet();
+        float tmpValue;
         float yMaxVal = 0f;
-        LineChartComponent lineChartComponent = (LineChartComponent) object;
-        ChartDataSet chartDataSet = lineChartComponent.getChartDataSet();
+        float yMinVal = 0f;
         for (Object chartData : chartDataSet.getChartDatas().toArray()) {
             int size = ((ChartData) chartData).getChartEntries().size();
             for (int i = 0; i < size; i++) {
                 ChartEntry entry = (ChartEntry) ((ChartData) chartData).getChartEntries().get(i);
                 Object entryObject = entry.getObject();
                 if (entryObject instanceof IUserChartData) {
-                    value = ((IUserChartData) entryObject).toValue();
+                    tmpValue = ((IUserChartData) entryObject).toValue();
                 } else if (entryObject instanceof Float) {
-                    value = ((Float) entryObject).floatValue();
+                    tmpValue = ((Float) entryObject).floatValue();
                 } else {
-                    value = Float.valueOf(entryObject.toString());
+                    tmpValue = Float.valueOf(entryObject.toString());
                 }
-                if (value > yMaxVal) {
-                    yMaxVal = value;
+                if (tmpValue > yMaxVal) {
+                    yMaxVal = tmpValue;
+                } else if (tmpValue < yMinVal) {
+                    yMinVal = tmpValue;
                 }
             }
         }
-        return yMaxVal;
+
+        int count = ((LineChartComponent) chartComponent).getYAxisLabelCount();
+        double range = Math.abs(yMaxVal - yMinVal);
+        double rawInterval = range / count;
+        double interval = MathUtil.roundToNextSignificant(rawInterval);
+        double intervalMagnitude = Math.pow(10, Math.log10(interval));
+        int intervalSigDigit = (int) (interval / intervalMagnitude);
+
+        double first = Math.ceil(yMinVal / interval) * interval;
+        double last = Math.floor(yMaxVal / interval) * interval;
+
+        double maxValue;
+        int n = 0;
+        int i;
+        for (maxValue = first; maxValue <= last; maxValue += interval) {
+            ++n;
+        }
+        //float[] mEntries=new float[n];
+
+//        for (i = 0, value = first; i < n; value += interval, ++i) {
+//            mEntries[i] = (float) value;
+//        }
+        return maxValue;
     }
 
 
@@ -105,11 +133,11 @@ public class LineChartComponentAdapter extends ChartComponentAdapter {
 
     public FontStyle getXAixFontStyle(Object object){
         LineChartComponent lineChartComponent = (LineChartComponent) object;
-        return lineChartComponent.getFontStyle();
+        return lineChartComponent.getXAxisFontStyle();
     }
 
     public FontStyle getYAixFontStyle(Object object){
         LineChartComponent lineChartComponent = (LineChartComponent) object;
-        return lineChartComponent.getFontStyle();
+        return lineChartComponent.getYAxisFontStyle();
     }
 }

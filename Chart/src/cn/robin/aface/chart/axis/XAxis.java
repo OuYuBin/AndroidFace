@@ -56,8 +56,8 @@ public class XAxis extends BaseAxis {
         mXAxisLabelPaint = new Paint();
         mXAxisLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mXAxisLabelPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-//        mXAxisLabelPaint.setTypeface(xAxisComponent.getFontStyle().getTypeface());
-        mXAxisLabelPaint.setTextSize(20);
+        mXAxisLabelPaint.setTextSize(mXAxisComponentAdapter.getFontStyle(getComponent()).getFontSize());
+        mXAxisLabelPaint.setTypeface(mXAxisComponentAdapter.getFontStyle(getComponent()).getTypeface());
         mXAxisLabelPaint.setTextAlign(Paint.Align.CENTER);
         mXAxisLabelPaint.setColor(Color.WHITE);
         Paint mXAxisGridLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);

@@ -23,8 +23,16 @@ public class LineChartComponent extends BaseChartComponent {
         return offsets;
     }
 
-    public FontStyle getFontStyle(){
-        return new FontStyle(15);
+    public int getYAxisLabelCount() {
+        return 5;
+    }
+
+    public FontStyle getXAxisFontStyle() {
+        return new FontStyle(18);
+    }
+
+    public FontStyle getYAxisFontStyle() {
+        return new FontStyle(18);
     }
 
 

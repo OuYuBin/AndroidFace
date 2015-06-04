@@ -4,7 +4,6 @@ import android.util.Log;
 import cn.robin.aface.chart.component.IChartComponent;
 import cn.robin.aface.chart.view.IChartView;
 import cn.robin.aface.core.annotations.AnnotationUtils;
-import cn.robin.aface.core.annotations.TypeArrayAnnotation;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -40,12 +39,12 @@ public class ChartComponentAdapterFactory {
             Field[] fields = object.getClass().getFields();
             Map typeArray = mChartView.getProperties();
             for (Field field : fields) {
-                TypeArrayAnnotation annotation = field.getAnnotation(TypeArrayAnnotation.class);
-                String typeName = annotation.name();
-                Object value = typeArray.get(typeName);
-                if (value != null) {
-                    AnnotationUtils.setValue(object, field, value);
-                }
+                //TypeArrayAnnotation annotation = field.getAnnotation(TypeArrayAnnotation.class);
+                //String typeName = annotation.name();
+                //Object value = typeArray.get(typeName);
+//                if (value != null) {
+//                    AnnotationUtils.setValue(object, field, value);
+//                }
             }
             if (type instanceof Class) {
                 try {

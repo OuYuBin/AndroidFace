@@ -1,7 +1,8 @@
 package cn.robin.aface.chart.component;
 
 import cn.robin.aface.chart.font.FontStyle;
-import cn.robin.aface.core.annotations.TypeArrayAnnotation;
+//
+// import cn.robin.aface.core.annotations.TypeArrayAnnotation;
 
 import java.util.List;
 
@@ -15,13 +16,13 @@ public class XAxisComponent extends AxisComponent {
     private float mXMaxVal;
 
     //--间隔系数
-    @TypeArrayAnnotation(name = "modulus", desc = "Modulus", type = "Integer")
+    //@TypeArrayAnnotation(name = "modulus", desc = "Modulus", type = "Integer")
     private int mModulus;
 
-    @TypeArrayAnnotation(name = "bottomOffset", desc = "BottomOffset", type = "float[]")
+    //@TypeArrayAnnotation(name = "bottomOffset", desc = "BottomOffset", type = "float[]")
     private float[] mOffsets;
 
-    @TypeArrayAnnotation(name = "fontSize", desc = "XAixFontSize", type = "Integer")
+    //@TypeArrayAnnotation(name = "fontSize", desc = "XAixFontSize", type = "Integer")
     private  int mFontSize;
 
 
@@ -41,7 +42,7 @@ public class XAxisComponent extends AxisComponent {
     }
 
     public FontStyle getFontStyle(){
-        return new FontStyle(15);
+        return new FontStyle(18);
     }
 
 

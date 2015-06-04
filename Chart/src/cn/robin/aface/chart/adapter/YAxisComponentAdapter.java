@@ -3,6 +3,7 @@ package cn.robin.aface.chart.adapter;
 import cn.robin.aface.chart.component.IChartComponent;
 import cn.robin.aface.chart.component.XAxisComponent;
 import cn.robin.aface.chart.component.YAxisComponent;
+import cn.robin.aface.chart.font.FontStyle;
 import cn.robin.aface.chart.model.ChartData;
 import cn.robin.aface.chart.model.ChartDataSet;
 import cn.robin.aface.chart.model.ChartEntry;
@@ -86,6 +87,12 @@ public class YAxisComponentAdapter extends BaseAxisComponentAdapter {
         this.mEntries = entries;
     }
 
+
+    public FontStyle getFontStyle(Object object) {
+        YAxisComponent yAxisComponent = (YAxisComponent) object;
+        return yAxisComponent.getFontStyle();
+    }
+
     private void computeLongestLabel() {
         String longestLabel = "";
         for (int i = 0; i < mEntries.length; i++) {
@@ -95,6 +102,8 @@ public class YAxisComponentAdapter extends BaseAxisComponentAdapter {
         }
         setLongestLabel(longestLabel);
     }
+
+
 
 //    public float[] getEntries() {
 //        float max=yAxisComponent.getYMaxVal();
