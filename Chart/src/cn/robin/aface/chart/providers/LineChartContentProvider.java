@@ -9,11 +9,11 @@ import java.util.List;
  * Created by robin on 15-3-28.
  * 线性图表内容提供器
  */
-public class BaseLineChartContentProvider implements ILineChartContentProvider {
+public class LineChartContentProvider implements ILineChartContentProvider {
 
     protected Object referenceObject;
 
-    public BaseLineChartContentProvider() {
+    public LineChartContentProvider() {
 
     }
 
@@ -34,11 +34,21 @@ public class BaseLineChartContentProvider implements ILineChartContentProvider {
 
 
     //--指定X坐标间距系数
-    public int getXAxisModulus(Object[] objects) {
+    public int getXAxisModulus(Object object) {
         return 10;
     }
 
-    public int getYAxisCount(Object[] objects) {
+    @Override
+    public float[] getXAxisOffsets(Object object) {
+        return new float[0];
+    }
+
+    @Override
+    public float[] getYAxisOffsets(Object object) {
+        return new float[0];
+    }
+
+    public int getYAxisCount(Object object) {
         return 5;
     }
 

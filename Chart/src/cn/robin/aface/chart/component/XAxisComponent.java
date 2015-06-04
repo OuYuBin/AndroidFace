@@ -1,11 +1,7 @@
 package cn.robin.aface.chart.component;
 
-import cn.robin.aface.chart.IBaseChartElement;
-import cn.robin.aface.chart.adapter.XAxisAdapter;
-import cn.robin.aface.chart.adapter.YAxisAdapter;
 import cn.robin.aface.chart.font.FontStyle;
-import cn.robin.aface.chart.model.ChartData;
-import cn.robin.aface.core.runtime.IAdaptable;
+import cn.robin.aface.core.annotations.TypeArrayAnnotation;
 
 import java.util.List;
 
@@ -19,54 +15,72 @@ public class XAxisComponent extends AxisComponent {
     private float mXMaxVal;
 
     //--间隔系数
-    private float mModulus;
+    @TypeArrayAnnotation(name = "modulus", desc = "Modulus", type = "Integer")
+    private int mModulus;
+
+    @TypeArrayAnnotation(name = "bottomOffset", desc = "BottomOffset", type = "float[]")
+    private float[] mOffsets;
+
+    @TypeArrayAnnotation(name = "fontSize", desc = "XAixFontSize", type = "Integer")
+    private  int mFontSize;
 
 
-    private List<String> mEntries;
-
-    public float getModulus() {
-        return mModulus;
+    public XAxisComponent() {
+        //super(adapter);
     }
 
-    public void setModulus(float modulus) {
-        this.mModulus = modulus;
+    public int getModulus() {
+        return 10;
     }
 
-    public XAxisComponent(IAdaptable adapter) {
-        super(adapter);
+    public float[] getOffsets() {
+        float[] offsets = new float[]{
+                0f, 20f
+        };
+        return offsets;
     }
 
-    public float getXMinVal() {
-        return mXMinVal;
+    public FontStyle getFontStyle(){
+        return new FontStyle(15);
     }
 
-    public void setXMinVal(float xMinVal) {
-        this.mXMinVal = xMinVal;
-    }
 
-    public float getXMaxVal() {
-        return mXMaxVal;
-    }
-
-    public void setXMaxVal(float xMaxVal) {
-        this.mXMaxVal = xMaxVal;
-    }
-
-    public List<String> getEntries() {
-        return mEntries;
-    }
-
-    public void setEntries(List<String> entries) {
-        this.mEntries = entries;
-    }
-
-    @Override
-    public Object getAdapter(Class adapter) {
-        if (adapter.equals(XAxisAdapter.class)) {
-            return new XAxisAdapter(this);
-        }
-        return null;
-    }
+//    public void setModulus(float modulus) {
+//        this.mModulus = modulus;
+//    }
+//
+//
+//    public float getXMinVal() {
+//        return mXMinVal;
+//    }
+//
+//    public void setXMinVal(float xMinVal) {
+//        this.mXMinVal = xMinVal;
+//    }
+//
+//    public float getXMaxVal() {
+//        return mXMaxVal;
+//    }
+//
+//    public void setXMaxVal(float xMaxVal) {
+//        this.mXMaxVal = xMaxVal;
+//    }
+//
+//    public List<String> getEntries() {
+//        return mEntries;
+//    }
+//
+//    public void setEntries(List<String> entries) {
+//        this.mEntries = entries;
+//    }
+//
+//    @Override
+//    public Object getAdapter(Class adapter) {
+//        if (adapter.equals(XAxisComponentAdapter.class)) {
+//            return new XAxisComponentAdapter(this);
+//        }
+//        return null;
+//    }
 
 
 }

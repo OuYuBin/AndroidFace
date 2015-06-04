@@ -1,6 +1,7 @@
 package cn.robin.aface.chart.component;
 
 import cn.robin.aface.chart.font.FontStyle;
+import cn.robin.aface.chart.model.ChartDataSet;
 import cn.robin.aface.core.runtime.IAdaptable;
 
 /**
@@ -18,8 +19,7 @@ public abstract class AxisComponent extends BaseChartComponent {
 
     protected FontStyle mFontStyle;
 
-    public AxisComponent(IAdaptable adapter) {
-        super(adapter);
+    public AxisComponent() {
     }
 
     public FontStyle getFontStyle() {
@@ -28,6 +28,10 @@ public abstract class AxisComponent extends BaseChartComponent {
 
     public void setFontStyle(FontStyle fontStyle) {
         this.mFontStyle = fontStyle;
+    }
+
+    public void setChartDataSet(ChartDataSet chartDataSet){
+        super.setChartDataSet(chartDataSet);
     }
 
 }

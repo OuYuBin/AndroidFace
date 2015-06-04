@@ -14,6 +14,8 @@ import cn.robin.aface.chart.model.ChartDataSet;
 import cn.robin.aface.chart.model.ChartModelManager;
 import cn.robin.aface.core.runtime.IAdaptable;
 
+import java.util.Properties;
+
 /**
  * Created by robin on 15-3-29.
  */
@@ -29,9 +31,6 @@ public class LineChartView extends BaseChartView {
 
     public LineChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray typedArray=context.obtainStyledAttributes(attrs, R.styleable.LineChartView);
-        xAxisLeftOffset=typedArray.getDimension(R.styleable.LineChartView_xAxisLeftOffset,15);
-        System.out.println("+++++++++"+xAxisLeftOffset);
     }
 
     public LineChartView(Context context, AttributeSet attrs, int defStyle) {
@@ -41,15 +40,24 @@ public class LineChartView extends BaseChartView {
 
     public void init() {
         super.init();
-        mChartTouchListener=new BaseLineChartTouchListener(this);
+        mChartTouchListener = new BaseLineChartTouchListener(this);
         //--构建所需图表元件
         createControl();
-        //--填充元件模型
-        setContent(this);
+    }
+
+    public TypedArray getTypeArray(AttributeSet attrs) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LineChartView);
+        return typedArray;
+    }
+
+    @Override
+    public void configureView(TypedArray typedArray) {
+        setProperty("xAxisLeftOffset", typedArray.getDimension(R.styleable.LineChartView_xAxisLeftOffset, 15));
+
     }
 
     private void createControl() {
-        mChartElement = new BaseLineChart();
+        mChartElement = new BaseLineChart(this);
     }
 
     public void setModel(ChartDataSet chartDataSet) {
@@ -57,19 +65,20 @@ public class LineChartView extends BaseChartView {
         notifyDataSetChange();
     }
 
+    public ChartDataSet getModel(){
+        return this.mChartDataSet;
+    }
+
+
     public void notifyDataSetChange() {
         //--对基本元件数据对象进行赋值填充
         ChartModelManager.calculateChartModel(this, mChartDataSet);
     }
 
-    private void setContent(IAdaptable adapter) {
-        ((BaseLineChart) mChartElement).setContent(adapter);
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawColor(Color.rgb(32,32,32));
+        canvas.drawColor(Color.rgb(32, 32, 32));
         drawChart(canvas);
     }
 
@@ -87,9 +96,9 @@ public class LineChartView extends BaseChartView {
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
-        if(mChartTouchListener!=null){
+        if (mChartTouchListener != null) {
             //Log.d("LineChartView",event.toString());
             mChartTouchListener.onTouch(this, event);
         }

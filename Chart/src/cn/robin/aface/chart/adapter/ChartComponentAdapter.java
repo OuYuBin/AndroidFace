@@ -1,5 +1,6 @@
 package cn.robin.aface.chart.adapter;
 
+import cn.robin.aface.chart.component.BaseChartComponent;
 import cn.robin.aface.chart.component.IChartComponent;
 import cn.robin.aface.chart.component.LineChartComponent;
 import cn.robin.aface.chart.model.ChartData;
@@ -13,22 +14,17 @@ import java.util.List;
 /**
  * Created by robin on 15-3-29.
  */
-public class ChartAdapter extends BaseChartComponentAdapter {
+public class ChartComponentAdapter extends BaseChartComponentAdapter {
 
-    List mEntries = new ArrayList();
 
-    public ChartAdapter(IChartComponent chartComponent) {
-        super(chartComponent);
-        computeDatas();
+    public ChartComponentAdapter() {
+        super();
     }
 
-    public List getEntries() {
-        return mEntries;
-    }
-
-    private void computeDatas() {
-        LineChartComponent lineChartComponent = (LineChartComponent) mChartComponent;
-        ChartDataSet chartDataSet = lineChartComponent.getChartDataSet();
+    public List getEntries(Object object) {
+        List entries = new ArrayList();
+        IChartComponent chartComponent = (IChartComponent) object;
+        ChartDataSet chartDataSet = chartComponent.getChartDataSet();
         for (int i = 0; i < chartDataSet.getChartDatas().size(); i++) {
             {
                 ChartData chartData = (ChartData) chartDataSet.getChartDatas().get(i);
@@ -38,22 +34,23 @@ public class ChartAdapter extends BaseChartComponentAdapter {
                     ChartEntry chartEntry = (ChartEntry) chartData.getChartEntries().get(j);
                     int index = chartEntry.getIndex();
                     values[j * 2] = index;
-                    Object object = chartEntry.getObject();
+                    Object entryObject = chartEntry.getObject();
                     float value;
-                    if (object instanceof IUserChartData) {
-                        value = ((IUserChartData) object).toValue();
-                    } else if (object instanceof Float) {
-                        value = ((Float) object).floatValue();
+                    if (entryObject instanceof IUserChartData) {
+                        value = ((IUserChartData) entryObject).toValue();
+                    } else if (entryObject instanceof Float) {
+                        value = ((Float) entryObject).floatValue();
                     } else {
-                        value = Float.valueOf(object.toString());
+                        value = Float.valueOf(entryObject.toString());
                     }
                     values[j * 2 + 1] = value;
                 }
-                mEntries.add(values);
+                entries.add(values);
             }
         }
-
+        return entries;
     }
+
 
 
 }

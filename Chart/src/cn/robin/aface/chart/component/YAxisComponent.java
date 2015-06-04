@@ -1,7 +1,7 @@
 package cn.robin.aface.chart.component;
 
-import cn.robin.aface.chart.IBaseChartElement;
-import cn.robin.aface.chart.adapter.YAxisAdapter;
+import cn.robin.aface.chart.adapter.YAxisComponentAdapter;
+import cn.robin.aface.core.annotations.TypeArrayAnnotation;
 import cn.robin.aface.core.runtime.IAdaptable;
 
 /**
@@ -11,47 +11,22 @@ import cn.robin.aface.core.runtime.IAdaptable;
  */
 public class YAxisComponent extends AxisComponent {
 
-
-    public float mYMaxVal;
-
-    public float mYMinVal;
-
+    @TypeArrayAnnotation(name = "labelCount", desc = "LabelCount", type = "Integer")
     public int mLabelCount;
 
-
-    public YAxisComponent(IAdaptable adapter) {
-        super(adapter);
-    }
-
-    public float getYMaxVal() {
-        return mYMaxVal;
-    }
-
-    public void setYMaxVal(float mYMaxVal) {
-        this.mYMaxVal = mYMaxVal;
-    }
-
-    public float getYMinVal() {
-        return mYMinVal;
-    }
-
-    public void setYMinVal(float mYMinVal) {
-        this.mYMinVal = mYMinVal;
+    public YAxisComponent() {
+        super();
     }
 
     public int getLabelCount() {
-        return mLabelCount;
+        return 5;
     }
 
-    public void setLabelCount(int labelCount) {
-        this.mLabelCount = labelCount;
+    public float[] getOffsets() {
+        float[] offsets = new float[]{
+                0f, 20f
+        };
+        return offsets;
     }
 
-    @Override
-    public Object getAdapter(Class adapter) {
-        if (adapter.equals(YAxisAdapter.class)) {
-            return new YAxisAdapter(this);
-        }
-        return null;
-    }
 }

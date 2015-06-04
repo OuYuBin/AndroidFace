@@ -1,37 +1,44 @@
 package cn.robin.aface.chart.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewParent;
-import cn.robin.aface.chart.IBaseChartElement;
+import cn.robin.aface.chart.IBaseChartControl;
+import cn.robin.aface.chart.adapter.ChartComponentAdapterFactory;
 import cn.robin.aface.chart.listeners.IChartOnTouchListener;
+import cn.robin.aface.chart.providers.IChartAxisProvider;
 import cn.robin.aface.chart.providers.IChartContentProvider;
 import cn.robin.aface.chart.providers.IChartLabelProvider;
-import cn.robin.aface.chart.providers.ILineChartAxisProvider;
 import cn.robin.aface.chart.utils.Transformer;
 import cn.robin.aface.chart.utils.ViewPortManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by robin on 15-3-30.
  */
-public class BaseChartView extends View implements IBaseChartView {
+public abstract class BaseChartView extends View implements IChartView {
 
     private IChartLabelProvider mChartLabelProvider;
 
     private IChartContentProvider mChartContentProvider;
 
-    private ILineChartAxisProvider mChartAxisProvider;
+    private IChartAxisProvider mChartAxisProvider;
 
+    private ChartComponentAdapterFactory mChartComponentAdapterFactory;
 
-
-    protected IBaseChartElement mChartElement;
+    protected IBaseChartControl mChartElement;
 
     protected ViewPortManager mViewPortManager;
 
     protected Transformer mTransformer;
 
     protected IChartOnTouchListener mChartTouchListener;
+
+    protected Map mProperties;
 
     public BaseChartView(Context context) {
         super(context);
@@ -40,24 +47,39 @@ public class BaseChartView extends View implements IBaseChartView {
 
     public BaseChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        TypedArray typedArray = getTypeArray(attrs);
+        configureView(typedArray);
+        //--元件适配器工厂
+        mChartComponentAdapterFactory = new ChartComponentAdapterFactory(this);
         init();
+        typedArray.recycle();
     }
+
 
     public BaseChartView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        TypedArray typedArray = getTypeArray(attrs);
+        configureView(typedArray);
+        //--元件适配器工厂
+        mChartComponentAdapterFactory = new ChartComponentAdapterFactory(this);
         init();
+        typedArray.recycle();
     }
+
+    public abstract void configureView(TypedArray typedArray);
+
+    public abstract TypedArray getTypeArray(AttributeSet attrs);
 
     public void init() {
-        mViewPortManager=new ViewPortManager();
-        mTransformer=new Transformer(mViewPortManager);
+        mViewPortManager = new ViewPortManager();
+        mTransformer = new Transformer(mViewPortManager);
     }
 
-    public IBaseChartElement getChartElement() {
+    public IBaseChartControl getChartElement() {
         return mChartElement;
     }
 
-    public void setChartElement(IBaseChartElement chartElement) {
+    public void setChartElement(IBaseChartControl chartElement) {
         this.mChartElement = chartElement;
     }
 
@@ -77,19 +99,19 @@ public class BaseChartView extends View implements IBaseChartView {
         this.mChartContentProvider = chartContentProvider;
     }
 
-    public ILineChartAxisProvider getChartAxisProvider() {
+    public IChartAxisProvider getChartAxisProvider() {
         return mChartAxisProvider;
     }
 
-    public void setChartAxisProvider(ILineChartAxisProvider chartAxisProvider) {
+    public void setChartAxisProvider(IChartAxisProvider chartAxisProvider) {
         this.mChartAxisProvider = chartAxisProvider;
     }
 
     @Override
     public Object getAdapter(Class adapter) {
-        if(adapter.equals(ViewPortManager.class)){
+        if (adapter.equals(ViewPortManager.class)) {
             return mViewPortManager;
-        }else if(adapter.equals(Transformer.class)){
+        } else if (adapter.equals(Transformer.class)) {
             return mTransformer;
         }
         return null;
@@ -100,9 +122,26 @@ public class BaseChartView extends View implements IBaseChartView {
     }
 
 
-    public void disableScroll(){
-        ViewParent parent=this.getParent();
-        if(parent!=null)
+    public void disableScroll() {
+        ViewParent parent = this.getParent();
+        if (parent != null)
             parent.requestDisallowInterceptTouchEvent(false);
+    }
+
+    public ChartComponentAdapterFactory getChartComponentAdapterFactory() {
+        return mChartComponentAdapterFactory;
+    }
+
+    public Map getProperties() {
+        return mProperties;
+    }
+
+    public void setProperty(String key, Object value) {
+        if (mProperties == null) {
+            mProperties = new HashMap();
+        }
+        if (value != null) {
+            mProperties.put(key, value);
+        }
     }
 }

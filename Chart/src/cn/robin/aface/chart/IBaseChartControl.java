@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by robin on 15-3-22.
  */
-public interface IBaseChartElement {
+public interface IBaseChartControl {
 
     public void setComponent(IChartComponent chartComponent);
 

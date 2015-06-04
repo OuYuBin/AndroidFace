@@ -5,13 +5,13 @@ import cn.robin.aface.chart.component.IChartComponent;
 /**
  * Created by robin on 15-4-17.
  */
-public class BaseAxisAdapter extends BaseChartComponentAdapter{
+public class BaseAxisComponentAdapter extends BaseChartComponentAdapter implements IXAxisComponentAdapter {
 
     private String mLongestLabel;
 
 
-    public BaseAxisAdapter(IChartComponent chartComponent) {
-        super(chartComponent);
+    public BaseAxisComponentAdapter() {
+        super();
     }
 
     public String getLongestLabel() {

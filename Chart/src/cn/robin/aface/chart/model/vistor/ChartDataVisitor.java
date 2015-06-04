@@ -1,13 +1,7 @@
 package cn.robin.aface.chart.model.vistor;
 
-import cn.robin.aface.chart.BaseLineChart;
-import cn.robin.aface.chart.IBaseChartElement;
-import cn.robin.aface.chart.component.LineChartComponent;
-import cn.robin.aface.chart.component.XAxisComponent;
-import cn.robin.aface.chart.component.YAxisComponent;
 import cn.robin.aface.chart.model.*;
-import cn.robin.aface.chart.providers.ILineChartLabelProvider;
-import cn.robin.aface.chart.view.IBaseChartView;
+import cn.robin.aface.chart.view.IChartView;
 
 /**
  * Created by robin on 15-3-21.
@@ -16,7 +10,7 @@ import cn.robin.aface.chart.view.IBaseChartView;
  */
 public class ChartDataVisitor implements IChartDataVisitor {
 
-    private IBaseChartView mChartView;
+    private IChartView mChartView;
 
     private ChartDataSet mChartDataSet;
 
@@ -24,7 +18,7 @@ public class ChartDataVisitor implements IChartDataVisitor {
 
     private float mYMinVal = 0f;
 
-    public ChartDataVisitor(IBaseChartView chartView) {
+    public ChartDataVisitor(IChartView chartView) {
         this.mChartView = chartView;
     }
 
@@ -35,7 +29,7 @@ public class ChartDataVisitor implements IChartDataVisitor {
             ChartData chartData = (ChartData) mChartDataSet.getChartDatas().get(i);
             chartData.accept(this);
         }
-        ModelParserFactory.parserModeToChartElement(this);
+        ChartModelBuildFactory.parserModeToChartElement(this);
     }
 
 
@@ -66,7 +60,7 @@ public class ChartDataVisitor implements IChartDataVisitor {
 
     }
 
-    public IBaseChartView getChartView() {
+    public IChartView getChartView() {
         return mChartView;
     }
 

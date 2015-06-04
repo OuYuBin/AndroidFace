@@ -8,65 +8,72 @@ import cn.robin.aface.chart.view.BaseChartView;
 /**
  * Created by robin on 15-3-21.
  * 视图屏幕参数管理对象
-
  */
 public class ViewPortManager {
 
 
+    protected ChartMatrix mTouchMatrix = new ChartMatrix();
 
-    protected ChartMatrix mTouchMatrix=new ChartMatrix();
+    RectF mChartContentRect = new RectF();
 
-    RectF mChartContentRect=new RectF();
+    float mChartHeight = 0f;
 
-    float mChartHeight=0f;
+    float mChartWidth = 0f;
 
-    float mChartWidth=0f;
+    private float mMinScaleX = 1f;
 
-    private float mMinScaleX=1f;
+    private float mMinScaleY = 1f;
 
-    private float mMinScaleY=1f;
+    private float mScaleX = 1f;
 
-    private float mScaleX =1f;
-
-    private float mScaleY=1f;
+    private float mScaleY = 1f;
 
     private float mTransOffsetX = 0f;
 
     private float mTransOffsetY = 0f;
 
-    public void setChartDimensions(float width,float height) {
-        mChartWidth=width;
-        mChartHeight=height;
-        if(mChartContentRect.width()<=0||mChartContentRect.height()<=0){
-            mChartContentRect.set(0,0,width,height);
+    private float mOffsetLeft = 0f;
+
+    private float mOffsetTop = 0f;
+
+    private float mOffsetRight = 0f;
+
+    private float mOffsetBottom = 0f;
+
+
+    public void setChartDimensions(float width, float height) {
+        mChartWidth = width;
+        mChartHeight = height;
+        if (mChartContentRect.width() <= 0 || mChartContentRect.height() <= 0) {
+            mChartContentRect.set(0, 0, width, height);
         }
     }
 
-    public void restrainViewPort(float offsetLeft,float offsetTop,float offsetRight,float offsetBottom){
-        mChartContentRect.set(offsetLeft,offsetTop,mChartWidth-offsetRight,mChartHeight-offsetBottom);
+    public void restrainViewPort(float offsetLeft, float offsetTop, float offsetRight, float offsetBottom) {
+        mChartContentRect.set(offsetLeft, offsetTop, mChartWidth - offsetRight, mChartHeight - offsetBottom);
     }
 
-    public float chartContentTop(){
+    public float chartContentTop() {
         return mChartContentRect.top;
     }
 
-    public float chartContentLeft(){
+    public float chartContentLeft() {
         return mChartContentRect.left;
     }
 
-    public float chartContentBottom(){
+    public float chartContentBottom() {
         return mChartContentRect.bottom;
     }
 
-    public float chartContentRight(){
+    public float chartContentRight() {
         return mChartContentRect.right;
     }
 
-    public float chartWidth(){
+    public float chartWidth() {
         return mChartContentRect.width();
     }
 
-    public float chartHeight(){
+    public float chartHeight() {
         return mChartContentRect.height();
     }
 
@@ -92,34 +99,33 @@ public class ViewPortManager {
     }
 
 
-    public boolean isOffContentLeft(float point){
-        if(point<mChartContentRect.left){
+    public boolean isOffContentLeft(float point) {
+        if (point < mChartContentRect.left) {
             return true;
         }
         return false;
     }
 
-    public boolean isOffContentRight(float point){
-        if(point>mChartContentRect.right){
+    public boolean isOffContentRight(float point) {
+        if (point > mChartContentRect.right) {
             return true;
         }
         return false;
     }
 
-    public boolean isOffContentTop(float point){
-        if(point<mChartContentRect.top){
+    public boolean isOffContentTop(float point) {
+        if (point < mChartContentRect.top) {
             return true;
         }
         return false;
     }
 
-    public boolean isOffContentBottom(float point){
-        if(point>mChartContentRect.bottom){
+    public boolean isOffContentBottom(float point) {
+        if (point > mChartContentRect.bottom) {
             return true;
         }
         return false;
     }
-
 
 
     public Matrix refresh(Matrix newMatrix, BaseChartView chart, boolean invalidate) {
@@ -136,32 +142,32 @@ public class ViewPortManager {
     }
 
 
-    public void limitTransAndScale(Matrix matrix,RectF content){
-        float[] vals=new float[9];
+    public void limitTransAndScale(Matrix matrix, RectF content) {
+        float[] vals = new float[9];
         matrix.getValues(vals);
-        float currentScaleX=vals[Matrix.MSCALE_X];
-        float currentTransX=vals[Matrix.MTRANS_X];
-        float currentScaleY=vals[Matrix.MSCALE_Y];
-        float currentTransY=vals[Matrix.MTRANS_Y];
-        mScaleX =Math.max(mMinScaleX,currentScaleX);
-        mScaleY=Math.max(mMinScaleY,currentScaleY);
+        float currentScaleX = vals[Matrix.MSCALE_X];
+        float currentTransX = vals[Matrix.MTRANS_X];
+        float currentScaleY = vals[Matrix.MSCALE_Y];
+        float currentTransY = vals[Matrix.MTRANS_Y];
+        mScaleX = Math.max(mMinScaleX, currentScaleX);
+        mScaleY = Math.max(mMinScaleY, currentScaleY);
 
-        float width=0f;
-        float height=0f;
-        if(content!=null) {
+        float width = 0f;
+        float height = 0f;
+        if (content != null) {
             width = content.width();
             height = content.height();
         }
         //--当缩小至1时,最大平移度降至0
-        float maxTransX=-width*(mScaleX -1f);
+        float maxTransX = -width * (mScaleX - 1f);
         float newTransX = Math.min(Math.max(currentTransX, maxTransX - mTransOffsetX), mTransOffsetX);
         //--当缩小至1时,最大平移度降至0
-        float maxTransY=height*(mScaleY-1f);
+        float maxTransY = height * (mScaleY - 1f);
         float newTransY = Math.max(Math.min(currentTransY, maxTransY + mTransOffsetY), -mTransOffsetY);
-        vals[Matrix.MSCALE_X]= mScaleX;
-        vals[Matrix.MSCALE_Y]=mScaleY;
-        vals[Matrix.MTRANS_X]=newTransX;
-        vals[Matrix.MTRANS_Y]=newTransY;
+        vals[Matrix.MSCALE_X] = mScaleX;
+        vals[Matrix.MSCALE_Y] = mScaleY;
+        vals[Matrix.MTRANS_X] = newTransX;
+        vals[Matrix.MTRANS_Y] = newTransY;
         matrix.setValues(vals);
     }
 }

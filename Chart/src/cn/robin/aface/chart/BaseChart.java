@@ -1,38 +1,35 @@
 package cn.robin.aface.chart;
 
-import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.util.AttributeSet;
-import android.view.View;
 import cn.robin.aface.chart.component.IChartComponent;
-import cn.robin.aface.chart.model.ChartDataSet;
-import cn.robin.aface.chart.model.ChartModelManager;
-import cn.robin.aface.chart.providers.IChartContentProvider;
-import cn.robin.aface.chart.providers.IChartLabelProvider;
+import cn.robin.aface.chart.view.IChartView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by robin on 15-3-21.
  */
-public abstract class BaseChart implements IBaseChartElement {
+public abstract class BaseChart extends BaseChartControl {
 
+    private List<BaseChartControl> children = new ArrayList<BaseChartControl>();
 
-    protected IChartComponent mChartComponent;
-
-
-    public BaseChart() {
+    public BaseChart(IChartView chartView, IChartComponent chartComponent) {
+        super(chartView, chartComponent);
     }
 
 
-    @Override
-    public void setComponent(IChartComponent chartComponent) {
-        this.mChartComponent = chartComponent;
+    public void addChild(BaseChartControl element) {
+        children.add(element);
     }
 
-    @Override
-    public IChartComponent getComponent() {
-        return mChartComponent;
+    public List<BaseChartControl> getChildren() {
+        return children;
     }
 
-
+    public void paintComponent(Canvas canvas) {
+        for (int i = 0; i < getChildren().size(); i++) {
+            getChildren().get(i).paintComponent(canvas);
+        }
+    }
 }

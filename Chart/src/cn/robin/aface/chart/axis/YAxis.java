@@ -3,11 +3,9 @@ package cn.robin.aface.chart.axis;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import cn.robin.aface.chart.adapter.YAxisAdapter;
+import cn.robin.aface.chart.adapter.YAxisComponentAdapter;
 import cn.robin.aface.chart.component.YAxisComponent;
-import cn.robin.aface.chart.utils.FontUtil;
-import cn.robin.aface.chart.utils.Transformer;
-import cn.robin.aface.chart.utils.ViewPortManager;
+import cn.robin.aface.chart.view.IChartView;
 
 /**
  * Created by robin on 15-3-21.
@@ -16,61 +14,57 @@ import cn.robin.aface.chart.utils.ViewPortManager;
  */
 public class YAxis extends BaseAxis {
 
-
     private Paint mYAxisPaint;
 
     private Paint mYAxisLablePaint;
 
-    private YAxisAdapter yAxisAdapter;
+    private YAxisComponentAdapter mYAxisComponentAdapter;
 
-    private ViewPortManager viewPortManager;
 
+    public YAxis(IChartView parent) {
+        super(parent, new YAxisComponent());
+    }
 
     public void paintComponent(Canvas canvas) {
         mYAxisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mYAxisPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mYAxisPaint.setColor(Color.rgb(50, 50, 50));
-        yAxisAdapter = (YAxisAdapter) getChartComponentAdapter(YAxisAdapter.class);
-        viewPortManager = mChartComponent.getViewPortManager();
-        canvas.drawLine(viewPortManager.chartContentLeft(), viewPortManager.chartContentTop(), viewPortManager.chartContentLeft(), viewPortManager.chartContentBottom(), mYAxisPaint);
+        canvas.drawLine(mViewPortManager.chartContentLeft(), mViewPortManager.chartContentTop(), mViewPortManager.chartContentLeft(), mViewPortManager.chartContentBottom(), mYAxisPaint);
         drawAxisLabels(canvas);
 
     }
 
 
     public void drawAxisLabels(Canvas canvas) {
-
-        float[] labels = yAxisAdapter.getEntries();
+        mYAxisComponentAdapter = (YAxisComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), YAxisComponentAdapter.class);
+        float[] labels = mYAxisComponentAdapter.getEntries(getComponent());
         //--根据刻度数值折算像素点
         int count = labels.length;
         float[] positions = new float[count * 2];
         for (int i = 0; i < positions.length; i += 2) {
             positions[i + 1] = labels[i / 2];
         }
-        Transformer transformer = mChartComponent.getTransformer();
-        transformer.pointValuesToPixel(positions);
+        mTransformer.pointValuesToPixel(positions);
 
         drawAxisLabels(canvas, positions);
 
     }
 
     private void drawAxisLabels(Canvas canvas, float[] positions) {
-
-        YAxisComponent yAxisComponent = (YAxisComponent) mChartComponent;
         mYAxisLablePaint = new Paint();
         mYAxisLablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mYAxisLablePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mYAxisLablePaint.setTypeface(yAxisComponent.getFontStyle().getTypeface());
-        mYAxisLablePaint.setTextSize(yAxisComponent.getFontStyle().getFontSize());
+        //mYAxisLablePaint.setTypeface(yAxisComponent.getFontStyle().getTypeface());
+        mYAxisLablePaint.setTextSize(20);
         mYAxisLablePaint.setColor(Color.WHITE);
-        mYAxisLablePaint.setTextAlign(Paint.Align.CENTER);
-        float offset = FontUtil.calcFontWidth(yAxisComponent.getFontStyle(), yAxisAdapter.getLongestLabel());
-        for (int i = 0; i < yAxisAdapter.getEntries().length; i++) {
-            String text = String.valueOf(yAxisAdapter.getEntries()[i]);
-            if (positions[2 * i + 1] <= viewPortManager.chartContentBottom())
-                canvas.drawText(text, viewPortManager.chartContentLeft() - offset - 5, positions[2 * i + 1], mYAxisLablePaint);
+        mYAxisLablePaint.setTextAlign(Paint.Align.RIGHT);
+        float offset = 2.0f;
+        for (int i = 0; i < mYAxisComponentAdapter.getEntries(getComponent()).length; i++) {
+            String text = String.valueOf(mYAxisComponentAdapter.getEntries(getComponent())[i]);
+            if (positions[2 * i + 1] <= mViewPortManager.chartContentBottom())
+                canvas.drawText(text, mViewPortManager.chartContentLeft() - offset, positions[2 * i + 1], mYAxisLablePaint);
             if (i > 0)
-                canvas.drawLine(viewPortManager.chartContentLeft(), positions[2 * i + 1], viewPortManager.chartContentRight(), positions[2 * i + 1], mYAxisPaint);
+                canvas.drawLine(mViewPortManager.chartContentLeft(), positions[2 * i + 1], mViewPortManager.chartContentRight(), positions[2 * i + 1], mYAxisPaint);
         }
     }
 
