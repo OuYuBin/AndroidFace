@@ -30,10 +30,14 @@ public class AdapterFactoryChartContentProvider implements ILineChartContentProv
         this.chartComponentAdapterFactory = chartView.getChartComponentAdapterFactory();
     }
 
+    public XAxisComponentAdapter getAdatper(Object object) {
+        return (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+    }
+
 
     //--指定X坐标间距系数
     public int getXAxisModulus(Object object) {
-        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+        XAxisComponentAdapter xAxisComponentAdapter = getAdatper(object);
         return xAxisComponentAdapter.getXAxisModulus(object);
     }
 
@@ -67,7 +71,7 @@ public class AdapterFactoryChartContentProvider implements ILineChartContentProv
     }
 
 
-    public FontStyle getXAixFontStyle(Object object){
+    public FontStyle getXAixFontStyle(Object object) {
         LineChartComponentAdapter lineChartComponentAdapter = (LineChartComponentAdapter) chartComponentAdapterFactory.adapter(object, LineChartComponentAdapter.class);
         return lineChartComponentAdapter.getXAixFontStyle(object);
     }

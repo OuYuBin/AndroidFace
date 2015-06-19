@@ -5,16 +5,12 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import cn.robin.aface.chart.BaseLineChart;
 import cn.robin.aface.chart.R;
 import cn.robin.aface.chart.listeners.BaseLineChartTouchListener;
 import cn.robin.aface.chart.model.ChartDataSet;
 import cn.robin.aface.chart.model.ChartModelManager;
-import cn.robin.aface.core.runtime.IAdaptable;
-
-import java.util.Properties;
 
 /**
  * Created by robin on 15-3-29.
@@ -38,14 +34,16 @@ public class LineChartView extends BaseChartView {
     }
 
 
-    public void init() {
+    @Override
+	public void init() {
         super.init();
         mChartTouchListener = new BaseLineChartTouchListener(this);
         //--构建所需图表元件
         createControl();
     }
 
-    public TypedArray getTypeArray(AttributeSet attrs) {
+    @Override
+	public TypedArray getTypeArray(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LineChartView);
         return typedArray;
     }
@@ -65,7 +63,8 @@ public class LineChartView extends BaseChartView {
         notifyDataSetChange();
     }
 
-    public ChartDataSet getModel(){
+    @Override
+	public ChartDataSet getModel(){
         return this.mChartDataSet;
     }
 
@@ -78,6 +77,9 @@ public class LineChartView extends BaseChartView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if(isInEditMode()) {
+        	return;
+        }
         canvas.drawColor(Color.rgb(32, 32, 32));
         drawChart(canvas);
     }
@@ -89,6 +91,9 @@ public class LineChartView extends BaseChartView {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    	if(isInEditMode()) {
+        	return;
+        }
         if (w > 0 && h > 0) {
             mViewPortManager.setChartDimensions(w, h);
         }
@@ -96,7 +101,8 @@ public class LineChartView extends BaseChartView {
         super.onSizeChanged(w, h, oldw, oldh);
     }
 
-    public boolean onTouchEvent(MotionEvent event) {
+    @Override
+	public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         if (mChartTouchListener != null) {
             //Log.d("LineChartView",event.toString());

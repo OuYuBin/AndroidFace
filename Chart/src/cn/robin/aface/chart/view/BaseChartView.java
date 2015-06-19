@@ -1,5 +1,8 @@
 package cn.robin.aface.chart.view;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -13,9 +16,6 @@ import cn.robin.aface.chart.providers.IChartContentProvider;
 import cn.robin.aface.chart.providers.IChartLabelProvider;
 import cn.robin.aface.chart.utils.Transformer;
 import cn.robin.aface.chart.utils.ViewPortManager;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by robin on 15-3-30.
@@ -47,6 +47,9 @@ public abstract class BaseChartView extends View implements IChartView {
 
     public BaseChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        if(isInEditMode()) {
+        	return;
+        }
         TypedArray typedArray = getTypeArray(attrs);
         configureView(typedArray);
         //--元件适配器工厂
@@ -58,6 +61,9 @@ public abstract class BaseChartView extends View implements IChartView {
 
     public BaseChartView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        if(isInEditMode()) {
+        	return;
+        }
         TypedArray typedArray = getTypeArray(attrs);
         configureView(typedArray);
         //--元件适配器工厂
@@ -83,7 +89,8 @@ public abstract class BaseChartView extends View implements IChartView {
         this.mChartElement = chartElement;
     }
 
-    public IChartLabelProvider getChartLabelProvider() {
+    @Override
+	public IChartLabelProvider getChartLabelProvider() {
         return mChartLabelProvider;
     }
 
@@ -91,7 +98,8 @@ public abstract class BaseChartView extends View implements IChartView {
         this.mChartLabelProvider = chartLabelProvider;
     }
 
-    public IChartContentProvider getChartContentProvider() {
+    @Override
+	public IChartContentProvider getChartContentProvider() {
         return mChartContentProvider;
     }
 
@@ -99,7 +107,8 @@ public abstract class BaseChartView extends View implements IChartView {
         this.mChartContentProvider = chartContentProvider;
     }
 
-    public IChartAxisProvider getChartAxisProvider() {
+    @Override
+	public IChartAxisProvider getChartAxisProvider() {
         return mChartAxisProvider;
     }
 
@@ -128,11 +137,13 @@ public abstract class BaseChartView extends View implements IChartView {
             parent.requestDisallowInterceptTouchEvent(false);
     }
 
-    public ChartComponentAdapterFactory getChartComponentAdapterFactory() {
+    @Override
+	public ChartComponentAdapterFactory getChartComponentAdapterFactory() {
         return mChartComponentAdapterFactory;
     }
 
-    public Map getProperties() {
+    @Override
+	public Map getProperties() {
         return mProperties;
     }
 

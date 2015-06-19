@@ -1,6 +1,7 @@
 package cn.robin.aface.chart.component;
 
 import cn.robin.aface.chart.font.FontStyle;
+import cn.robin.aface.core.annotations.TypeArrayAnnotation;
 //
 // import cn.robin.aface.core.annotations.TypeArrayAnnotation;
 
@@ -22,7 +23,7 @@ public class XAxisComponent extends AxisComponent {
     //@TypeArrayAnnotation(name = "bottomOffset", desc = "BottomOffset", type = "float[]")
     private float[] mOffsets;
 
-    //@TypeArrayAnnotation(name = "fontSize", desc = "XAixFontSize", type = "Integer")
+    @TypeArrayAnnotation(name = "fontSize", desc = "XAixFontSize", type = "Integer")
     private  int mFontSize;
 
 

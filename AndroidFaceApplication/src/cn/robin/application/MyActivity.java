@@ -24,7 +24,7 @@ public class MyActivity extends Activity {
         setContentView(R.layout.main);
         LineChartView lineChart= (LineChartView) findViewById(R.id.view);
         //lineChart.setChartContentProvider(new LineChartContentProvider());
-        lineChart.setChartLabelProvider(new BaseLineChartStyleLabelProvider());
+        //lineChart.setChartLabelProvider(new BaseLineChartStyleLabelProvider());
         //lineChart.setChartAxisProvider(new BaseLineChartAxisProvider());
         lineChart.setModel(createModel());
         lineChart.invalidate();

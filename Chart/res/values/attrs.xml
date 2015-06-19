@@ -4,10 +4,13 @@
     <attr name="xAxisRightOffset" format="dimension"/>
     <attr name="xAxisTopOffset" format="dimension"/>
     <attr name="xAxisDownOffset" format="dimension"/>
+    <attr name="xAxisFontSize" format="dimension"/>
 
-    <declare-styleable name="LineChartView">
+    <declare-styleable name="LineChart">
         <attr name="xAxisLeftOffset"/>
         <attr name="xAxisRightOffset"/>
         <attr name="xAxisTopOffset"/>
+        <attr name="xAxisDownOffset"/>
+        <attr name="xAxisFontSize"/>
     </declare-styleable>
 </resources>
