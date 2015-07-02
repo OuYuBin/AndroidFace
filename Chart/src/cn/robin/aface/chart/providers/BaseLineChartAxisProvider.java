@@ -2,7 +2,7 @@ package cn.robin.aface.chart.providers;
 
 /**
  * Created by robin on 15-4-17.
- *
+ *自定义图表轴提供器
  */
 public class BaseLineChartAxisProvider implements ILineChartAxisProvider {
 

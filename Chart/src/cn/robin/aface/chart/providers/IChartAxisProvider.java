@@ -5,6 +5,7 @@ package cn.robin.aface.chart.providers;
  */
 public interface IChartAxisProvider {
 
+    //--x坐标间距系数
     public int getXAxisModulus(Object object);
 
     //--X轴边距

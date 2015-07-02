@@ -5,7 +5,7 @@ import cn.robin.aface.chart.adapter.XAxisComponentAdapter;
 
 /**
  * Created by robin on 15-5-30.
- * 工厂提供器
+ * 轴工厂提供器
  */
 public class AdapterFactoryChartAxisProvider implements ILineChartAxisProvider {
 

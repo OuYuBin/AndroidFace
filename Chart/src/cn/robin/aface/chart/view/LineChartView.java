@@ -44,14 +44,14 @@ public class LineChartView extends BaseChartView {
 
     @Override
 	public TypedArray getTypeArray(AttributeSet attrs) {
-        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LineChartView);
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LineChart);
         return typedArray;
     }
 
     @Override
     public void configureView(TypedArray typedArray) {
-        setProperty("xAxisLeftOffset", typedArray.getDimension(R.styleable.LineChartView_xAxisLeftOffset, 15));
-
+        //setPropertyType("xAxisLeftOffset", typedArray.getDimension(R.styleable.LineChart_xAxisLeftOffset, 15));
+        setPropertyType("xAxisModulus",typedArray.getInteger(R.styleable.LineChart_xAxisModulus,5));
     }
 
     private void createControl() {
@@ -112,4 +112,8 @@ public class LineChartView extends BaseChartView {
     }
 
 
+    @Override
+    public Object getAdapter(Class adapter) {
+        return super.getAdapter(adapter);
+    }
 }

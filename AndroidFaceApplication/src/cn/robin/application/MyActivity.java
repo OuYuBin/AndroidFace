@@ -22,10 +22,10 @@ public class MyActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        LineChartView lineChart= (LineChartView) findViewById(R.id.view);
+        LineChartView lineChart= (LineChartView) findViewById(R.id.test);
         //lineChart.setChartContentProvider(new LineChartContentProvider());
         //lineChart.setChartLabelProvider(new BaseLineChartStyleLabelProvider());
-        //lineChart.setChartAxisProvider(new BaseLineChartAxisProvider());
+        lineChart.setChartAxisProvider(new BaseLineChartAxisProvider());
         lineChart.setModel(createModel());
         lineChart.invalidate();
     }

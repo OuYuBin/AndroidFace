@@ -38,7 +38,7 @@ public abstract class BaseChartView extends View implements IChartView {
 
     protected IChartOnTouchListener mChartTouchListener;
 
-    protected Map mProperties;
+    protected Map mPropertyTypes;
 
     public BaseChartView(Context context) {
         super(context);
@@ -144,15 +144,15 @@ public abstract class BaseChartView extends View implements IChartView {
 
     @Override
 	public Map getProperties() {
-        return mProperties;
+        return mPropertyTypes;
     }
 
-    public void setProperty(String key, Object value) {
-        if (mProperties == null) {
-            mProperties = new HashMap();
+    public void setPropertyType(String key, Object value) {
+        if (mPropertyTypes == null) {
+            mPropertyTypes = new HashMap();
         }
         if (value != null) {
-            mProperties.put(key, value);
+            mPropertyTypes.put(key, value);
         }
     }
 }

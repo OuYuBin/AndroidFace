@@ -5,6 +5,7 @@
     <attr name="xAxisTopOffset" format="dimension"/>
     <attr name="xAxisDownOffset" format="dimension"/>
     <attr name="xAxisFontSize" format="dimension"/>
+    <attr name="xAxisModulus" format="integer"/>
 
     <declare-styleable name="LineChart">
         <attr name="xAxisLeftOffset"/>
@@ -12,5 +13,6 @@
         <attr name="xAxisTopOffset"/>
         <attr name="xAxisDownOffset"/>
         <attr name="xAxisFontSize"/>
+        <attr name="xAxisModulus"/>
     </declare-styleable>
 </resources>

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:lineChart="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
+              xmlns:lineChart="http://schemas.android.com/apk/res/cn.robin.application" android:orientation="vertical"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:weightSum="1">
-    <cn.robin.aface.chart.view.LineChartView android:id="@+id/view"
+              android:layout_height="fill_parent">
+    <cn.robin.aface.chart.view.LineChartView android:id="@+id/test"
                                              android:layout_width="fill_parent"
-                                             android:layout_height="fill_parent"/>
+                                             android:layout_height="fill_parent" lineChart:xAxisModulus="5"/>
 </LinearLayout>
 

@@ -17,13 +17,13 @@ public class XAxisComponent extends AxisComponent {
     private float mXMaxVal;
 
     //--间隔系数
-    //@TypeArrayAnnotation(name = "modulus", desc = "Modulus", type = "Integer")
+    @TypeArrayAnnotation(name = "modulus", desc = "xAxisModulus", type = "Integer")
     private int mModulus;
 
     //@TypeArrayAnnotation(name = "bottomOffset", desc = "BottomOffset", type = "float[]")
     private float[] mOffsets;
 
-    @TypeArrayAnnotation(name = "fontSize", desc = "XAixFontSize", type = "Integer")
+    //@TypeArrayAnnotation(name = "fontSize", desc = "xAxisFontSize", type = "Integer")
     private  int mFontSize;
 
 

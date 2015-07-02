@@ -30,14 +30,14 @@ public class AdapterFactoryChartContentProvider implements ILineChartContentProv
         this.chartComponentAdapterFactory = chartView.getChartComponentAdapterFactory();
     }
 
-    public XAxisComponentAdapter getAdatper(Object object) {
-        return (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
-    }
+//    public XAxisComponentAdapter getAdatper(Object object) {
+//        return (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+//    }
 
 
     //--指定X坐标间距系数
     public int getXAxisModulus(Object object) {
-        XAxisComponentAdapter xAxisComponentAdapter = getAdatper(object);
+        XAxisComponentAdapter xAxisComponentAdapter =(XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);;
         return xAxisComponentAdapter.getXAxisModulus(object);
     }
 
