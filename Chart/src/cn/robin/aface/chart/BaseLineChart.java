@@ -7,8 +7,12 @@ import android.graphics.PaintFlagsDrawFilter;
 import cn.robin.aface.chart.adapter.LineChartComponentAdapter;
 import cn.robin.aface.chart.axis.XAxis;
 import cn.robin.aface.chart.axis.YAxis;
+import cn.robin.aface.chart.component.IChartComponent;
 import cn.robin.aface.chart.component.LineChartComponent;
 import cn.robin.aface.chart.font.FontStyle;
+import cn.robin.aface.chart.providers.axis.IChartAxisProvider;
+import cn.robin.aface.chart.providers.axis.ILineChartAxisProvider;
+import cn.robin.aface.chart.providers.chart.ILineChartContentProvider;
 import cn.robin.aface.chart.utils.FontUtil;
 import cn.robin.aface.chart.view.IChartView;
 
@@ -21,24 +25,44 @@ public class BaseLineChart extends BaseChart {
 
     LineChartComponentAdapter mLineChartComponentAdapter;
 
+    ILineChartAxisProvider lineChartAxisProvider;
+
+    ILineChartContentProvider lineChartContentProvider;
+
+    XAxis xAxis;
+
+    YAxis yAxis;
+
     public BaseLineChart(IChartView parent) {
         super(parent, new LineChartComponent());
-        addChild(new XAxis(parent));
-        addChild(new YAxis(parent));
+        xAxis = new XAxis(parent);
+        addChild(xAxis);
+        yAxis = new YAxis(parent);
+        addChild(yAxis);
+
     }
 
     @Override
     public void paintComponent(Canvas canvas) {
-        mLineChartComponentAdapter = (LineChartComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), LineChartComponentAdapter.class);
-        float[] xAxisOffsets = mLineChartComponentAdapter.getXAxisOffsets(getComponent());
-        float[] yAxisOffsets = mLineChartComponentAdapter.getYAxisOffsets(getComponent());
-        FontStyle xAxisFontStyle=mLineChartComponentAdapter.getXAixFontStyle(getComponent());
-        FontStyle yAxisFontStyle=mLineChartComponentAdapter.getYAixFontStyle(getComponent());
+        //if(mChartView.getChartAxisProvider())
+        lineChartContentProvider = (ILineChartContentProvider) getChartView().getChartContentProvider();
+        lineChartAxisProvider = (ILineChartAxisProvider) getChartView().getChartAxisProvider();
+        float[] xAxisOffsets = lineChartAxisProvider.getXAxisOffsets(xAxis.getComponent());
+        float[] yAxisOffsets = lineChartAxisProvider.getYAxisOffsets(yAxis.getComponent());
+        FontStyle xAxisFontStyle = lineChartAxisProvider.getXAixFontStyle(xAxis.getComponent());
+        FontStyle yAxisFontStyle = lineChartAxisProvider.getYAixFontStyle(yAxis.getComponent());
+
+
+        //mLineChartComponentAdapter = (LineChartComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), LineChartComponentAdapter.class);
+        //float[] xAxisOffsets = mLineChartComponentAdapter.getXAxisOffsets(getComponent());
+        //float[] yAxisOffsets = mLineChartComponentAdapter.getYAxisOffsets(getComponent());
+        //FontStyle xAxisFontStyle = mLineChartComponentAdapter.getXAixFontStyle(getComponent());
+        //FontStyle yAxisFontStyle = mLineChartComponentAdapter.getYAixFontStyle(getComponent());
         float labelHeight = FontUtil.calcFontHeight(xAxisFontStyle);
-        float lebelWidth=FontUtil.calcFontWidth(yAxisFontStyle, String.valueOf(mLineChartComponentAdapter.getYMaxVal(getComponent())));
-        mViewPortManager.restrainViewPort(yAxisOffsets[0]+lebelWidth,xAxisOffsets[0],yAxisOffsets[1],xAxisOffsets[1]+labelHeight);
+        float lebelWidth = FontUtil.calcFontWidth(yAxisFontStyle, "100");
+        mViewPortManager.restrainViewPort(yAxisOffsets[0] + lebelWidth, xAxisOffsets[0], yAxisOffsets[1], xAxisOffsets[1] + labelHeight);
         mTransformer.prepareMatrixOffset(true);
-        mTransformer.prepareMatrixValuePx(0, mLineChartComponentAdapter.getDeltaX(getComponent()), 0, mLineChartComponentAdapter.getDeltaY(getComponent()));
+        mTransformer.prepareMatrixValuePx(0, lineChartContentProvider.getDeltaX(getComponent()), 0, lineChartContentProvider.getDeltaY(getComponent()));
         super.paintComponent(canvas);
         int clipRestoreCount = canvas.save();
         canvas.clipRect(getViewPortManager().getChartContentRect());
@@ -49,7 +73,7 @@ public class BaseLineChart extends BaseChart {
 
     private void drawData(Canvas canvas) {
         canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-        List entries = mLineChartComponentAdapter.getEntries(getComponent());
+        List entries = lineChartContentProvider.getEntries(getComponent());
         Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setAntiAlias(true);
         mPaint.setSubpixelText(true);

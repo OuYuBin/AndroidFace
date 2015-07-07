@@ -1,9 +1,9 @@
-package cn.robin.aface.chart.providers;
+package cn.robin.aface.chart.providers.chart;
 
 /**
  * Created by robin on 15-3-28.
  */
-public interface ILineChartLabelProvider extends IChartLabelProvider{
+public interface ILineChartStyleProvider extends IChartStyleProvider{
 
     public static final int AXIS_OFFSET_LEFT=5;
 

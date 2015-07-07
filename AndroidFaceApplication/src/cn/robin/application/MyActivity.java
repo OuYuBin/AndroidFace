@@ -6,9 +6,7 @@ import android.util.Log;
 import cn.robin.aface.chart.model.ChartData;
 import cn.robin.aface.chart.model.ChartDataSet;
 import cn.robin.aface.chart.model.ChartEntry;
-import cn.robin.aface.chart.providers.BaseLineChartAxisProvider;
-import cn.robin.aface.chart.providers.LineChartContentProvider;
-import cn.robin.aface.chart.providers.BaseLineChartStyleLabelProvider;
+import cn.robin.aface.chart.providers.axis.impl.BaseLineChartAxisProvider;
 import cn.robin.aface.chart.view.LineChartView;
 
 import java.util.ArrayList;
@@ -25,7 +23,7 @@ public class MyActivity extends Activity {
         LineChartView lineChart= (LineChartView) findViewById(R.id.test);
         //lineChart.setChartContentProvider(new LineChartContentProvider());
         //lineChart.setChartLabelProvider(new BaseLineChartStyleLabelProvider());
-        lineChart.setChartAxisProvider(new BaseLineChartAxisProvider());
+        //lineChart.setChartAxisProvider(new BaseLineChartAxisProvider());
         lineChart.setModel(createModel());
         lineChart.invalidate();
     }

@@ -1,6 +1,7 @@
-package cn.robin.aface.chart.providers;
+package cn.robin.aface.chart.providers.chart.impl;
 
 import cn.robin.aface.chart.model.ChartData;
+import cn.robin.aface.chart.providers.chart.ILineChartContentProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,11 @@ import java.util.List;
 public class LineChartContentProvider implements ILineChartContentProvider {
 
     protected Object referenceObject;
+
+    @Override
+    public List getEntries(Object object) {
+        return null;
+    }
 
     public LineChartContentProvider() {
 
@@ -39,14 +45,24 @@ public class LineChartContentProvider implements ILineChartContentProvider {
     }
 
     @Override
-    public float[] getXAxisOffsets(Object object) {
-        return new float[0];
+    public int getDeltaX(Object object) {
+        return 0;
     }
 
     @Override
-    public float[] getYAxisOffsets(Object object) {
-        return new float[0];
+    public float getDeltaY(Object object) {
+        return 0;
     }
+
+//    @Override
+//    public float[] getXAxisOffsets(Object object) {
+//        return new float[0];
+//    }
+
+//    @Override
+//    public float[] getYAxisOffsets(Object object) {
+//        return new float[0];
+//    }
 
     public int getYAxisCount(Object object) {
         return 5;

@@ -1,7 +1,11 @@
 package cn.robin.aface.chart.model;
 
 import cn.robin.aface.chart.model.vistor.ChartDataVisitor;
-import cn.robin.aface.chart.providers.*;
+import cn.robin.aface.chart.providers.axis.ILineChartAxisProvider;
+import cn.robin.aface.chart.providers.axis.impl.AdapterFactoryChartAxisProvider;
+import cn.robin.aface.chart.providers.chart.ILineChartContentProvider;
+import cn.robin.aface.chart.providers.chart.ILineChartStyleProvider;
+import cn.robin.aface.chart.providers.chart.impl.AdapterFactoryChartContentProvider;
 import cn.robin.aface.chart.view.IChartView;
 import cn.robin.aface.chart.view.LineChartView;
 
@@ -30,19 +34,18 @@ public class ChartModelBuildFactory {
     private static void updateLineChartComponent(LineChartView chartView, ChartDataSet chartDataSet, float yMaxVal, float yMinVal) {
 
         //--此处需要重写,通过已存在的提供器完成向元件的适配
-
         //--根据用户自定义provider来完成自定义数据信息获取
         ILineChartContentProvider lineChartContentProvider = (ILineChartContentProvider) chartView.getChartContentProvider();
         ILineChartAxisProvider lineChartAxisProvider = (ILineChartAxisProvider) chartView.getChartAxisProvider();
-        ILineChartLabelProvider lineChartLabelProvider = (ILineChartLabelProvider) chartView.getChartLabelProvider();
+//        ILineChartStyleProvider lineChartLabelProvider = (ILineChartStyleProvider) chartView.getChartLabelProvider();
 
         //--如果发现开发人员未通过提供器完成属性设置,则需要通过工厂适配器层直接完成元件对象适配器的属性配置
-        if (lineChartAxisProvider == null) {
-            //chartView.setChartContentProvider(new AdapterFactoryChartContentProvider(chartView.getChartComponentAdapterFactory()));
+        if (lineChartContentProvider == null) {
+            chartView.setChartContentProvider(new AdapterFactoryChartContentProvider(chartView.getChartComponentAdapterFactory()));
         }
-        if (lineChartLabelProvider == null) {
+        //if (lineChartLabelProvider == null) {
             //chartView.setChartlabelProvider(new AdapterFactoryChartLabelProvider(chartView.getChartComponentAdapterFactory()));
-        }
+        //}
         if (lineChartAxisProvider == null) {
             chartView.setChartAxisProvider(new AdapterFactoryChartAxisProvider(chartView.getChartComponentAdapterFactory()));
         }

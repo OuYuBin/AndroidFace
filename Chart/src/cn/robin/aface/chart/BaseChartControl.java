@@ -14,6 +14,8 @@ public abstract class BaseChartControl implements IBaseChartControl {
 
     private IChartComponent mChartComponent;
 
+
+
     private IChartView mChartView;
 
     protected ViewPortManager mViewPortManager;
@@ -48,5 +50,9 @@ public abstract class BaseChartControl implements IBaseChartControl {
 
     public Transformer getTransformer() {
         return mTransformer;
+    }
+
+    public IChartView getChartView() {
+        return mChartView;
     }
 }

@@ -3,8 +3,6 @@ package cn.robin.application;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
-import cn.robin.aface.chart.providers.IChartLabelProvider;
-import cn.robin.aface.chart.BaseLineChart;
 import cn.robin.aface.chart.view.LineChartView;
 
 /**

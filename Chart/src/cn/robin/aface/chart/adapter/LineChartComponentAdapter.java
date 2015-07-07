@@ -13,6 +13,7 @@ import cn.robin.aface.chart.utils.MathUtil;
 
 /**
  * Created by robin on 15-6-2.
+ * 基本线性图标模型适配器
  */
 public class LineChartComponentAdapter extends ChartComponentAdapter {
 

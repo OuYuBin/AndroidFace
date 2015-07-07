@@ -2,6 +2,8 @@ package cn.robin.aface.chart;
 
 import android.graphics.Canvas;
 import cn.robin.aface.chart.component.IChartComponent;
+import cn.robin.aface.chart.providers.axis.IChartAxisProvider;
+import cn.robin.aface.chart.providers.chart.IChartContentProvider;
 import cn.robin.aface.chart.view.IChartView;
 
 import java.util.ArrayList;
@@ -12,7 +14,9 @@ import java.util.List;
  */
 public abstract class BaseChart extends BaseChartControl {
 
+
     private List<BaseChartControl> children = new ArrayList<BaseChartControl>();
+
 
     public BaseChart(IChartView chartView, IChartComponent chartComponent) {
         super(chartView, chartComponent);

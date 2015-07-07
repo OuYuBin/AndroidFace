@@ -11,9 +11,8 @@ import android.view.ViewParent;
 import cn.robin.aface.chart.IBaseChartControl;
 import cn.robin.aface.chart.adapter.ChartComponentAdapterFactory;
 import cn.robin.aface.chart.listeners.IChartOnTouchListener;
-import cn.robin.aface.chart.providers.IChartAxisProvider;
-import cn.robin.aface.chart.providers.IChartContentProvider;
-import cn.robin.aface.chart.providers.IChartLabelProvider;
+import cn.robin.aface.chart.providers.axis.IChartAxisProvider;
+import cn.robin.aface.chart.providers.chart.IChartContentProvider;
 import cn.robin.aface.chart.utils.Transformer;
 import cn.robin.aface.chart.utils.ViewPortManager;
 
@@ -22,7 +21,7 @@ import cn.robin.aface.chart.utils.ViewPortManager;
  */
 public abstract class BaseChartView extends View implements IChartView {
 
-    private IChartLabelProvider mChartLabelProvider;
+    //private IChartLabelProvider mChartLabelProvider;
 
     private IChartContentProvider mChartContentProvider;
 
@@ -89,14 +88,14 @@ public abstract class BaseChartView extends View implements IChartView {
         this.mChartElement = chartElement;
     }
 
-    @Override
-	public IChartLabelProvider getChartLabelProvider() {
-        return mChartLabelProvider;
-    }
-
-    public void setChartLabelProvider(IChartLabelProvider chartLabelProvider) {
-        this.mChartLabelProvider = chartLabelProvider;
-    }
+//    @Override
+//	public IChartLabelProvider getChartLabelProvider() {
+//        return mChartLabelProvider;
+//    }
+//
+//    public void setChartLabelProvider(IChartLabelProvider chartLabelProvider) {
+//        this.mChartLabelProvider = chartLabelProvider;
+//    }
 
     @Override
 	public IChartContentProvider getChartContentProvider() {

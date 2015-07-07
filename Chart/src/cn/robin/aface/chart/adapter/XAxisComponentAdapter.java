@@ -62,4 +62,6 @@ public class XAxisComponentAdapter extends BaseAxisComponentAdapter {
         XAxisComponent xAxisComponent = (XAxisComponent) object;
         return xAxisComponent.getFontStyle();
     }
+
+
 }

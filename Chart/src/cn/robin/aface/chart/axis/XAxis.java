@@ -3,14 +3,9 @@ package cn.robin.aface.chart.axis;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import cn.robin.aface.chart.adapter.IChartComponentAdapter;
-import cn.robin.aface.chart.adapter.LineChartComponentAdapter;
 import cn.robin.aface.chart.adapter.XAxisComponentAdapter;
-import cn.robin.aface.chart.adapter.YAxisComponentAdapter;
 import cn.robin.aface.chart.component.XAxisComponent;
 import cn.robin.aface.chart.utils.FontUtil;
-import cn.robin.aface.chart.utils.Transformer;
-import cn.robin.aface.chart.utils.ViewPortManager;
 import cn.robin.aface.chart.view.IChartView;
 
 /**
@@ -24,11 +19,13 @@ public class XAxis extends BaseAxis {
 
     protected XAxisComponentAdapter mXAxisComponentAdapter;
 
+
     public XAxis(IChartView parent) {
         super(parent, new XAxisComponent());
     }
 
     public void paintComponent(Canvas canvas) {
+        super.paintComponent(canvas);
         mXAxisLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mXAxisLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mXAxisLinePaint.setColor(Color.rgb(50, 50, 50));
@@ -38,9 +35,12 @@ public class XAxis extends BaseAxis {
     }
 
     public void drawAxisLabels(Canvas canvas) {
-        mXAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), XAxisComponentAdapter.class);
-        String[] labels = mXAxisComponentAdapter.getEntries(getComponent());
-        float modulus = mXAxisComponentAdapter.getXAxisModulus(getComponent());
+        float modulus=chartAxisProvider.getXAxisModulus(getComponent());
+//        mXAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), XAxisComponentAdapter.class);
+//        String[] labels = mXAxisComponentAdapter.getEntries(getComponent());
+        String[] labels=chartAxisProvider.getXAxisEntries(getComponent());
+
+        //float modulus = mXAxisComponentAdapter.getXAxisModulus(getComponent());
 
         //--坐标生成
         float[] positions = new float[labels.length * 2];
@@ -56,15 +56,16 @@ public class XAxis extends BaseAxis {
         mXAxisLabelPaint = new Paint();
         mXAxisLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mXAxisLabelPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mXAxisLabelPaint.setTextSize(mXAxisComponentAdapter.getFontStyle(getComponent()).getFontSize());
-        mXAxisLabelPaint.setTypeface(mXAxisComponentAdapter.getFontStyle(getComponent()).getTypeface());
+        mXAxisLabelPaint.setTextSize(15);
+        //mXAxisLabelPaint.setTypeface(mXAxisComponentAdapter.getFontStyle(getComponent()).getTypeface());
         mXAxisLabelPaint.setTextAlign(Paint.Align.CENTER);
         mXAxisLabelPaint.setColor(Color.WHITE);
         Paint mXAxisGridLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mXAxisGridLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mXAxisGridLinePaint.setColor(Color.rgb(50, 50, 50));
 
-        int offset = FontUtil.calcFontHeight(mXAxisComponentAdapter.getFontStyle(getComponent()));
+        int offset=10;
+        //int offset = FontUtil.calcFontHeight(mXAxisComponentAdapter.getFontStyle(getComponent()));
         for (int i = 0; i < labels.length; i++) {
             float x = positions[2 * i];
             if (x <= mViewPortManager.chartContentRight() && x >= mViewPortManager.chartContentLeft()) {

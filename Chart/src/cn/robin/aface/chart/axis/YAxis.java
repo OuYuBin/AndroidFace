@@ -26,6 +26,7 @@ public class YAxis extends BaseAxis {
     }
 
     public void paintComponent(Canvas canvas) {
+        super.paintComponent(canvas);
         mYAxisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mYAxisPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mYAxisPaint.setColor(Color.rgb(50, 50, 50));
