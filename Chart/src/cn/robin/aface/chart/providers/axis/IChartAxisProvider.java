@@ -1,5 +1,6 @@
 package cn.robin.aface.chart.providers.axis;
 
+import android.graphics.Color;
 import cn.robin.aface.chart.component.LineChartComponent;
 import cn.robin.aface.chart.font.FontStyle;
 
@@ -14,6 +15,8 @@ public interface IChartAxisProvider {
     //--x坐标显示信息
     String[] getXAxisEntries(Object object);
 
+    float[] getYAxisEntries(Object object);;
+
     //--x轴边距偏移量
     float[] getXAxisOffsets(Object object);
 
@@ -21,8 +24,19 @@ public interface IChartAxisProvider {
     float[] getYAxisOffsets(Object object);
 
     //--x轴字体显示样式
-    FontStyle getXAixFontStyle(Object object);
+    FontStyle getXAxisFontStyle(Object object);
 
     //--y轴字体显示样式
-    FontStyle getYAixFontStyle(Object object);
+    FontStyle getYAxisFontStyle(Object object);
+
+    //--x轴颜色
+    int getXAxisColor(Object object);
+
+    //--y轴颜色
+    int getYAxisColor(Object object);
+
+    int getXGridColor(Object object);
+
+    int getYGridColor(Object object);
+
 }

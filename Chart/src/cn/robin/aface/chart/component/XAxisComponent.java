@@ -1,5 +1,6 @@
 package cn.robin.aface.chart.component;
 
+import android.graphics.Color;
 import cn.robin.aface.chart.font.FontStyle;
 import cn.robin.aface.core.annotations.TypeArrayAnnotation;
 //
@@ -16,6 +17,10 @@ public class XAxisComponent extends AxisComponent {
 
     private float mXMaxVal;
 
+    private int mColor;
+
+    private int mGridColor;
+
     //--间隔系数
     @TypeArrayAnnotation(name = "modulus", desc = "xAxisModulus", type = "Integer")
     private int mModulus;
@@ -29,6 +34,14 @@ public class XAxisComponent extends AxisComponent {
 
     public XAxisComponent() {
         //super(adapter);
+    }
+
+    public int getColor(){
+        return Color.WHITE;
+    }
+
+    public int getGridColor(){
+        return Color.WHITE;
     }
 
     public int getModulus() {

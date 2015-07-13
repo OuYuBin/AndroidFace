@@ -93,16 +93,15 @@ public class YAxisComponentAdapter extends BaseAxisComponentAdapter {
         return yAxisComponent.getFontStyle();
     }
 
-    private void computeLongestLabel() {
-        String longestLabel = "";
-        for (int i = 0; i < mEntries.length; i++) {
-            String label = String.valueOf(mEntries[i]);
-            if (label.length() > longestLabel.length())
-                longestLabel = label;
-        }
-        setLongestLabel(longestLabel);
+    public int getColor(Object object){
+        YAxisComponent yAxisComponent = (YAxisComponent) object;
+        return yAxisComponent.getColor();
     }
 
+    public int getGridColor(Object object){
+        YAxisComponent yAxisComponent = (YAxisComponent) object;
+        return yAxisComponent.getGridColor();
+    }
 
 
 //    public float[] getEntries() {

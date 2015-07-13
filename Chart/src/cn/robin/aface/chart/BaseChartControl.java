@@ -14,8 +14,6 @@ public abstract class BaseChartControl implements IBaseChartControl {
 
     private IChartComponent mChartComponent;
 
-
-
     private IChartView mChartView;
 
     protected ViewPortManager mViewPortManager;
@@ -33,7 +31,7 @@ public abstract class BaseChartControl implements IBaseChartControl {
         this.mChartComponent = chartComponent;
         this.mViewPortManager = (ViewPortManager) mChartView.getAdapter(ViewPortManager.class);
         this.mTransformer = (Transformer) mChartView.getAdapter(Transformer.class);
-        this.mChartComponentAdapterFactory=mChartView.getChartComponentAdapterFactory();
+        this.mChartComponentAdapterFactory = mChartView.getChartComponentAdapterFactory();
     }
 
     public void setComponent(IChartComponent chartComponent) {

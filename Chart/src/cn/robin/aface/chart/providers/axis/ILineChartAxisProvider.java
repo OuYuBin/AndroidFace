@@ -8,13 +8,13 @@ import cn.robin.aface.chart.font.FontStyle;
  */
 public interface ILineChartAxisProvider extends IChartAxisProvider{
 
-    //public static final float AXIS_OFFSET_LEFT=20f;
+    public static final float AXIS_OFFSET_LEFT=20f;
 
-    //public static final float AXIS_OFFSET_RIGHT=20f;
+    public static final float AXIS_OFFSET_RIGHT=20f;
 
-    //public static final float AXIS_OFFSET_TOP=20f;
+    public static final float AXIS_OFFSET_TOP=20f;
 
-    //public static final float AXIS_OFFSET_BOTTOM=20f;
+    public static final float AXIS_OFFSET_BOTTOM=20f;
 
     //--X轴边距
     //public float[] getXAxisOffsets();
@@ -22,6 +22,6 @@ public interface ILineChartAxisProvider extends IChartAxisProvider{
     //--Y轴边距
     //public float[] getYAxisOffsets();
 
-    //public FontStyle getFontStyle();
+
 
 }

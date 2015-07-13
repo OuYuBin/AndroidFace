@@ -44,23 +44,16 @@ public class BaseLineChart extends BaseChart {
 
     @Override
     public void paintComponent(Canvas canvas) {
-        //if(mChartView.getChartAxisProvider())
         lineChartContentProvider = (ILineChartContentProvider) getChartView().getChartContentProvider();
         lineChartAxisProvider = (ILineChartAxisProvider) getChartView().getChartAxisProvider();
         float[] xAxisOffsets = lineChartAxisProvider.getXAxisOffsets(xAxis.getComponent());
         float[] yAxisOffsets = lineChartAxisProvider.getYAxisOffsets(yAxis.getComponent());
-        FontStyle xAxisFontStyle = lineChartAxisProvider.getXAixFontStyle(xAxis.getComponent());
-        FontStyle yAxisFontStyle = lineChartAxisProvider.getYAixFontStyle(yAxis.getComponent());
-
-
-        //mLineChartComponentAdapter = (LineChartComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), LineChartComponentAdapter.class);
-        //float[] xAxisOffsets = mLineChartComponentAdapter.getXAxisOffsets(getComponent());
-        //float[] yAxisOffsets = mLineChartComponentAdapter.getYAxisOffsets(getComponent());
-        //FontStyle xAxisFontStyle = mLineChartComponentAdapter.getXAixFontStyle(getComponent());
-        //FontStyle yAxisFontStyle = mLineChartComponentAdapter.getYAixFontStyle(getComponent());
+        FontStyle xAxisFontStyle = lineChartAxisProvider.getXAxisFontStyle(xAxis.getComponent());
+        FontStyle yAxisFontStyle = lineChartAxisProvider.getYAxisFontStyle(yAxis.getComponent());
         float labelHeight = FontUtil.calcFontHeight(xAxisFontStyle);
-        float lebelWidth = FontUtil.calcFontWidth(yAxisFontStyle, "100");
-        mViewPortManager.restrainViewPort(yAxisOffsets[0] + lebelWidth, xAxisOffsets[0], yAxisOffsets[1], xAxisOffsets[1] + labelHeight);
+        String longestLabel=FontUtil.getTheLongestLabel(lineChartAxisProvider.getYAxisEntries(yAxis.getComponent()));
+        float labelWidth = FontUtil.calcFontWidth(yAxisFontStyle, longestLabel);
+        mViewPortManager.restrainViewPort(yAxisOffsets[0] + labelWidth, xAxisOffsets[0], yAxisOffsets[1], xAxisOffsets[1] + labelHeight);
         mTransformer.prepareMatrixOffset(true);
         mTransformer.prepareMatrixValuePx(0, lineChartContentProvider.getDeltaX(getComponent()), 0, lineChartContentProvider.getDeltaY(getComponent()));
         super.paintComponent(canvas);

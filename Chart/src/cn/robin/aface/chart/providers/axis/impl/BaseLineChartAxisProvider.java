@@ -6,9 +6,14 @@ import cn.robin.aface.chart.providers.axis.ILineChartAxisProvider;
 
 /**
  * Created by robin on 15-4-17.
- *自定义图表轴提供器基类
+ * 自定义图表轴提供器基类
  */
 public class BaseLineChartAxisProvider implements ILineChartAxisProvider {
+
+    @Override
+    public float[] getYAxisEntries(Object object) {
+        return new float[0];
+    }
 
     @Override
     public int getXAxisModulus(Object object) {
@@ -26,43 +31,51 @@ public class BaseLineChartAxisProvider implements ILineChartAxisProvider {
         return new String[0];
     }
 
+
     @Override
     public float[] getXAxisOffsets(Object object) {
-        return new float[0];
+        float[] offsets = new float[]{
+                0f, AXIS_OFFSET_BOTTOM
+        };
+        return offsets;
     }
 
     @Override
     public float[] getYAxisOffsets(Object object) {
-        return new float[0];
+        float[] offsets = new float[]{
+                0f, AXIS_OFFSET_BOTTOM
+        };
+        return offsets;
+    }
+
+
+    public FontStyle getXAxisFontStyle(Object object) {
+        FontStyle fontStyle = new FontStyle(15);
+        return fontStyle;
+    }
+
+    public FontStyle getYAxisFontStyle(Object object) {
+        FontStyle fontStyle = new FontStyle(15);
+        return fontStyle;
     }
 
     @Override
-    public FontStyle getXAixFontStyle(Object object) {
-        return new FontStyle(18);
+    public int getXAxisColor(Object object) {
+        return 0;
     }
 
     @Override
-    public FontStyle getYAixFontStyle(Object object) {
-        return new FontStyle(18);
+    public int getYAxisColor(Object object) {
+        return 0;
     }
 
-    //    public float[] getXAxisOffsets(Object object) {
-//        float[] offsets = new float[] {
-//                0f,AXIS_OFFSET_BOTTOM
-//        } ;
-//        return offsets;
-//    }
+    @Override
+    public int getXGridColor(Object object) {
+        return 0;
+    }
 
-//    public float[] getYAxisOffsets(Object object) {
-//        float[] offsets = new float[]{
-//                0f,AXIS_OFFSET_RIGHT
-//        } ;
-//        return offsets;
-//    }
-//
-//
-//    public FontStyle getFontStyle(){
-//        FontStyle fontStyle=new FontStyle(15);
-//        return fontStyle;
-//    }
+    @Override
+    public int getYGridColor(Object object) {
+        return 0;
+    }
 }

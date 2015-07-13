@@ -46,4 +46,18 @@ public class FontUtil {
         paint.getTextBounds(text, 0, text.length(), rect);
         return rect.width();
     }
+
+    public static String getTheLongestLabel(float[] values){
+        String longestLabel=null;
+        int maxLength=0;
+        for(float value:values){
+            int length=String.valueOf(value).length();
+            if(length>maxLength){
+                maxLength=length;
+                longestLabel=String.valueOf(value);
+            }
+        }
+
+        return longestLabel;
+    }
 }

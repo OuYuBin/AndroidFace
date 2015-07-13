@@ -1,5 +1,6 @@
 package cn.robin.aface.chart.adapter;
 
+import android.graphics.Color;
 import cn.robin.aface.chart.component.XAxisComponent;
 import cn.robin.aface.chart.font.FontStyle;
 import cn.robin.aface.chart.model.ChartData;
@@ -56,6 +57,16 @@ public class XAxisComponentAdapter extends BaseAxisComponentAdapter {
             mEntries[j] = index + "";
         }
         return mEntries;
+    }
+
+    public int getColor(Object object){
+        XAxisComponent xAxisComponent = (XAxisComponent) object;
+        return xAxisComponent.getColor();
+    }
+
+    public int getGridColor(Object object){
+        XAxisComponent xAxisComponent = (XAxisComponent) object;
+        return xAxisComponent.getGridColor();
     }
 
     public FontStyle getFontStyle(Object object){

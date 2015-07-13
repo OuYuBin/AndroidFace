@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import cn.robin.aface.chart.adapter.XAxisComponentAdapter;
 import cn.robin.aface.chart.component.XAxisComponent;
+import cn.robin.aface.chart.font.FontStyle;
 import cn.robin.aface.chart.utils.FontUtil;
 import cn.robin.aface.chart.view.IChartView;
 
@@ -28,20 +29,16 @@ public class XAxis extends BaseAxis {
         super.paintComponent(canvas);
         mXAxisLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mXAxisLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mXAxisLinePaint.setColor(Color.rgb(50, 50, 50));
+        mXAxisLinePaint.setColor(chartAxisProvider.getXAxisColor(getComponent()));
         canvas.drawLine(mViewPortManager.chartContentLeft(), mViewPortManager.chartContentBottom(), mViewPortManager.chartContentRight(), mViewPortManager.chartContentBottom(), mXAxisLinePaint);
         drawAxisLabels(canvas);
 
     }
 
     public void drawAxisLabels(Canvas canvas) {
+        //--间隔系数
         float modulus=chartAxisProvider.getXAxisModulus(getComponent());
-//        mXAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), XAxisComponentAdapter.class);
-//        String[] labels = mXAxisComponentAdapter.getEntries(getComponent());
         String[] labels=chartAxisProvider.getXAxisEntries(getComponent());
-
-        //float modulus = mXAxisComponentAdapter.getXAxisModulus(getComponent());
-
         //--坐标生成
         float[] positions = new float[labels.length * 2];
         float value = 0;
@@ -56,16 +53,16 @@ public class XAxis extends BaseAxis {
         mXAxisLabelPaint = new Paint();
         mXAxisLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mXAxisLabelPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mXAxisLabelPaint.setTextSize(15);
-        //mXAxisLabelPaint.setTypeface(mXAxisComponentAdapter.getFontStyle(getComponent()).getTypeface());
-        mXAxisLabelPaint.setTextAlign(Paint.Align.CENTER);
-        mXAxisLabelPaint.setColor(Color.WHITE);
+        FontStyle fontStyle=chartAxisProvider.getXAxisFontStyle(getComponent());
+        mXAxisLabelPaint.setTextSize(fontStyle.getFontSize());
+        mXAxisLabelPaint.setTypeface(fontStyle.getTypeface());
+        mXAxisLabelPaint.setTextAlign(fontStyle.getTextAlign());
+        mXAxisLabelPaint.setColor(fontStyle.getFontColor());
         Paint mXAxisGridLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mXAxisGridLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mXAxisGridLinePaint.setColor(Color.rgb(50, 50, 50));
+        mXAxisGridLinePaint.setColor(chartAxisProvider.getXGridColor(getComponent()));
 
-        int offset=10;
-        //int offset = FontUtil.calcFontHeight(mXAxisComponentAdapter.getFontStyle(getComponent()));
+        int offset = FontUtil.calcFontHeight(fontStyle);
         for (int i = 0; i < labels.length; i++) {
             float x = positions[2 * i];
             if (x <= mViewPortManager.chartContentRight() && x >= mViewPortManager.chartContentLeft()) {

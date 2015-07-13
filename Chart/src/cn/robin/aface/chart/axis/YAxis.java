@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import cn.robin.aface.chart.adapter.YAxisComponentAdapter;
 import cn.robin.aface.chart.component.YAxisComponent;
+import cn.robin.aface.chart.font.FontStyle;
+import cn.robin.aface.chart.utils.FontUtil;
 import cn.robin.aface.chart.view.IChartView;
 
 /**
@@ -29,7 +31,7 @@ public class YAxis extends BaseAxis {
         super.paintComponent(canvas);
         mYAxisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mYAxisPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mYAxisPaint.setColor(Color.rgb(50, 50, 50));
+        mYAxisPaint.setColor(chartAxisProvider.getYAxisColor(getComponent()));
         canvas.drawLine(mViewPortManager.chartContentLeft(), mViewPortManager.chartContentTop(), mViewPortManager.chartContentLeft(), mViewPortManager.chartContentBottom(), mYAxisPaint);
         drawAxisLabels(canvas);
 
@@ -37,8 +39,9 @@ public class YAxis extends BaseAxis {
 
 
     public void drawAxisLabels(Canvas canvas) {
-        mYAxisComponentAdapter = (YAxisComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), YAxisComponentAdapter.class);
-        float[] labels = mYAxisComponentAdapter.getEntries(getComponent());
+        float[] labels = chartAxisProvider.getYAxisEntries(getComponent());
+        //mYAxisComponentAdapter = (YAxisComponentAdapter) mChartComponentAdapterFactory.adapter(getComponent(), YAxisComponentAdapter.class);
+        //float[] labels = mYAxisComponentAdapter.getEntries(getComponent());
         //--根据刻度数值折算像素点
         int count = labels.length;
         float[] positions = new float[count * 2];
@@ -55,17 +58,22 @@ public class YAxis extends BaseAxis {
         mYAxisLablePaint = new Paint();
         mYAxisLablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mYAxisLablePaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mYAxisLablePaint.setTextSize(mYAxisComponentAdapter.getFontStyle(getComponent()).getFontSize());
-        mYAxisLablePaint.setTypeface(mYAxisComponentAdapter.getFontStyle(getComponent()).getTypeface());
-        mYAxisLablePaint.setColor(Color.WHITE);
+        FontStyle fontStyle = chartAxisProvider.getYAxisFontStyle(getComponent());
+        mYAxisLablePaint.setTextSize(fontStyle.getFontSize());
+        mYAxisLablePaint.setTypeface(fontStyle.getTypeface());
+        mYAxisLablePaint.setColor(fontStyle.getFontColor());
         mYAxisLablePaint.setTextAlign(Paint.Align.RIGHT);
-        float offset = 2.0f;
-        for (int i = 0; i < mYAxisComponentAdapter.getEntries(getComponent()).length; i++) {
-            String text = String.valueOf(mYAxisComponentAdapter.getEntries(getComponent())[i]);
+        Paint yAxisGridLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        yAxisGridLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        yAxisGridLinePaint.setColor(chartAxisProvider.getYGridColor(getComponent()));
+
+        float offset = 0;
+        for (int i = 0; i < chartAxisProvider.getYAxisEntries(getComponent()).length; i++) {
+            String text = String.valueOf(chartAxisProvider.getYAxisEntries(getComponent())[i]);
             if (positions[2 * i + 1] <= mViewPortManager.chartContentBottom())
                 canvas.drawText(text, mViewPortManager.chartContentLeft() - offset, positions[2 * i + 1], mYAxisLablePaint);
             if (i > 0)
-                canvas.drawLine(mViewPortManager.chartContentLeft(), positions[2 * i + 1], mViewPortManager.chartContentRight(), positions[2 * i + 1], mYAxisPaint);
+                canvas.drawLine(mViewPortManager.chartContentLeft(), positions[2 * i + 1], mViewPortManager.chartContentRight(), positions[2 * i + 1], yAxisGridLinePaint);
         }
     }
 

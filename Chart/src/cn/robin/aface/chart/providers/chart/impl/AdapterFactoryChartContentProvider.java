@@ -36,12 +36,6 @@ public class AdapterFactoryChartContentProvider implements ILineChartContentProv
     }
 
 
-//    public String[] getXVals(Object object) {
-//        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
-//        return xAxisComponentAdapter.getXVals();
-//    }
-
-
     public int getDeltaX(Object object) {
         LineChartComponentAdapter lineChartComponentAdapter = (LineChartComponentAdapter) chartComponentAdapterFactory.adapter(object, LineChartComponentAdapter.class);
         return lineChartComponentAdapter.getDeltaX(object);
@@ -53,7 +47,21 @@ public class AdapterFactoryChartContentProvider implements ILineChartContentProv
     }
 
 
-//    @Override
+    public FontStyle getXAixFontStyle(Object object) {
+        LineChartComponentAdapter lineChartComponentAdapter = (LineChartComponentAdapter) chartComponentAdapterFactory.adapter(object, LineChartComponentAdapter.class);
+        return lineChartComponentAdapter.getXAixFontStyle(object);
+    }
+
+    public int getYAxisCount(Object[] objects) {
+        return 5;
+    }
+
+    //    public String[] getXVals(Object object) {
+//        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+//        return xAxisComponentAdapter.getXVals();
+//    }
+
+    //    @Override
 //    public float[] getXAxisOffsets(Object object) {
 //        LineChartComponentAdapter lineChartComponentAdapter = (LineChartComponentAdapter) chartComponentAdapterFactory.adapter(object, LineChartComponentAdapter.class);
 //        return lineChartComponentAdapter.getXAxisOffsets(object);
@@ -64,17 +72,6 @@ public class AdapterFactoryChartContentProvider implements ILineChartContentProv
 //        LineChartComponentAdapter lineChartComponentAdapter = (LineChartComponentAdapter) chartComponentAdapterFactory.adapter(object, LineChartComponentAdapter.class);
 //        return lineChartComponentAdapter.getYAxisOffsets(object);
 //    }
-
-
-    public FontStyle getXAixFontStyle(Object object) {
-        LineChartComponentAdapter lineChartComponentAdapter = (LineChartComponentAdapter) chartComponentAdapterFactory.adapter(object, LineChartComponentAdapter.class);
-        return lineChartComponentAdapter.getXAixFontStyle(object);
-    }
-
-    public int getYAxisCount(Object[] objects) {
-        return 5;
-    }
-
 
     //    public int getXAxisCount(Object[] objects) {
 //        int xAxisCount = 0;
