@@ -35,7 +35,7 @@ public class LineChartView extends BaseChartView {
 
 
     @Override
-	public void init() {
+    public void init() {
         super.init();
         mChartTouchListener = new BaseLineChartTouchListener(this);
         //--构建所需图表元件
@@ -43,15 +43,21 @@ public class LineChartView extends BaseChartView {
     }
 
     @Override
-	public TypedArray getTypeArray(AttributeSet attrs) {
+    public TypedArray getTypeArray(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.LineChart);
         return typedArray;
     }
 
     @Override
     public void configureView(TypedArray typedArray) {
-        //setPropertyType("xAxisLeftOffset", typedArray.getDimension(R.styleable.LineChart_xAxisLeftOffset, 15));
-        setPropertyType("xAxisModulus",typedArray.getInteger(R.styleable.LineChart_xAxisModulus,5));
+        setPropertyType("xAxisBottomOffset", typedArray.getInteger(R.styleable.LineChart_xAxisBottomOffset, 20));
+        setPropertyType("xAxisTopOffset", typedArray.getInteger(R.styleable.LineChart_xAxisTopOffset, 20));
+        setPropertyType("xAxisFontSize", typedArray.getInteger(R.styleable.LineChart_xAxisFontSize, 18));
+        setPropertyType("xAxisModulus", typedArray.getInteger(R.styleable.LineChart_xAxisModulus, 5));
+
+        setPropertyType("yAxisLeftOffset", typedArray.getInteger(R.styleable.LineChart_yAxisLeftOffset, 20));
+        setPropertyType("yAxisRightOffset", typedArray.getInteger(R.styleable.LineChart_yAxisRightOffset, 20));
+        setPropertyType("yAxisFontSize", typedArray.getInteger(R.styleable.LineChart_yAxisFontSize, 18));
     }
 
     private void createControl() {
@@ -64,7 +70,7 @@ public class LineChartView extends BaseChartView {
     }
 
     @Override
-	public ChartDataSet getModel(){
+    public ChartDataSet getModel() {
         return this.mChartDataSet;
     }
 
@@ -77,8 +83,8 @@ public class LineChartView extends BaseChartView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(isInEditMode()) {
-        	return;
+        if (isInEditMode()) {
+            return;
         }
         canvas.drawColor(Color.rgb(32, 32, 32));
         drawChart(canvas);
@@ -91,8 +97,8 @@ public class LineChartView extends BaseChartView {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-    	if(isInEditMode()) {
-        	return;
+        if (isInEditMode()) {
+            return;
         }
         if (w > 0 && h > 0) {
             mViewPortManager.setChartDimensions(w, h);
@@ -102,7 +108,7 @@ public class LineChartView extends BaseChartView {
     }
 
     @Override
-	public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         if (mChartTouchListener != null) {
             //Log.d("LineChartView",event.toString());

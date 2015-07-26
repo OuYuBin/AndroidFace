@@ -26,9 +26,11 @@ public class XAxisComponentAdapter extends BaseAxisComponentAdapter {
     }
 
 
-    public float[] getXAxisOffsets(Object object) {
+    public int[] getXAxisOffsets(Object object) {
         XAxisComponent xAxisComponent = (XAxisComponent) object;
-        return xAxisComponent.getOffsets();
+        int xAxisTopOffset=xAxisComponent.getOffsetTop();
+        int xAxisBottomOffset=xAxisComponent.getOffsetBottom();
+        return new int[]{xAxisTopOffset,xAxisBottomOffset};
     }
 
 

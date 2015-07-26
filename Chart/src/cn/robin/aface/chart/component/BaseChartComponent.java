@@ -25,37 +25,4 @@ public abstract class BaseChartComponent implements IChartComponent {
         return mChartDataSet;
     }
 
-//    public float getOffsetLeft() {
-//        return mOffsetLeft;
-//    }
-//
-//    public void setOffsetLeft(float offsetLeft) {
-//        this.mOffsetLeft = offsetLeft;
-//    }
-//
-//    public float getOffsetRight() {
-//        return mOffsetRight;
-//    }
-//
-//    public void setOffsetRight(float offsetRight) {
-//        this.mOffsetRight = offsetRight;
-//    }
-//
-//    public float getOffsetBottom() {
-//        return mOffsetBottom;
-//    }
-//
-//    public void setOffsetBottom(float offsetBottom) {
-//        this.mOffsetBottom = offsetBottom;
-//    }
-//
-//    public float getOffsetTop() {
-//        return mOffsetTop;
-//    }
-//
-//    public void setOffsetTop(float offsetTop) {
-//        this.mOffsetTop = offsetTop;
-//    }
-
-
 }

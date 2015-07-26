@@ -1,5 +1,6 @@
 package cn.robin.aface.chart.providers.axis;
 
+import cn.robin.aface.chart.adapter.ChartComponentAdapterFactory;
 import cn.robin.aface.chart.font.FontStyle;
 
 /**
@@ -8,19 +9,13 @@ import cn.robin.aface.chart.font.FontStyle;
  */
 public interface ILineChartAxisProvider extends IChartAxisProvider{
 
-    public static final float AXIS_OFFSET_LEFT=20f;
+    public static final int AXIS_OFFSET_LEFT=20;
 
-    public static final float AXIS_OFFSET_RIGHT=20f;
+    public static final int AXIS_OFFSET_RIGHT=20;
 
-    public static final float AXIS_OFFSET_TOP=20f;
+    public static final int AXIS_OFFSET_TOP=20;
 
-    public static final float AXIS_OFFSET_BOTTOM=20f;
-
-    //--X轴边距
-    //public float[] getXAxisOffsets();
-
-    //--Y轴边距
-    //public float[] getYAxisOffsets();
+    public static final int AXIS_OFFSET_BOTTOM=20;
 
 
 

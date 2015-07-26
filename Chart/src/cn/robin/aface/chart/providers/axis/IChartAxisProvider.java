@@ -1,13 +1,11 @@
 package cn.robin.aface.chart.providers.axis;
 
-import android.graphics.Color;
-import cn.robin.aface.chart.component.LineChartComponent;
 import cn.robin.aface.chart.font.FontStyle;
 
 /**
  * Created by robin on 15-5-30.
  */
-public interface IChartAxisProvider {
+public interface IChartAxisProvider  {
 
     //--x坐标轴间距系数
     int getXAxisModulus(Object object);
@@ -15,13 +13,18 @@ public interface IChartAxisProvider {
     //--x坐标显示信息
     String[] getXAxisEntries(Object object);
 
+    /**
+     * y坐标显示信息
+     * @param object
+     * @return
+     */
     float[] getYAxisEntries(Object object);;
 
     //--x轴边距偏移量
-    float[] getXAxisOffsets(Object object);
+    int[] getXAxisOffsets(Object object);
 
     //--Y轴边距
-    float[] getYAxisOffsets(Object object);
+    int[] getYAxisOffsets(Object object);
 
     //--x轴字体显示样式
     FontStyle getXAxisFontStyle(Object object);
@@ -38,5 +41,6 @@ public interface IChartAxisProvider {
     int getXGridColor(Object object);
 
     int getYGridColor(Object object);
+
 
 }

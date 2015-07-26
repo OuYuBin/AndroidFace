@@ -17,7 +17,6 @@ public abstract class BaseAxis extends BaseChartControl implements IBaseChartCon
 
     public BaseAxis(IChartView chartView, IChartComponent chartComponent) {
         super(chartView, chartComponent);
-
     }
 
     @Override

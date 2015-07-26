@@ -27,9 +27,11 @@ public class YAxisComponentAdapter extends BaseAxisComponentAdapter {
         super();
     }
 
-    public float[] getYAxisOffsets(Object object) {
+    public int[] getYAxisOffsets(Object object) {
         YAxisComponent yAxisComponent = (YAxisComponent) object;
-        return yAxisComponent.getOffsets();
+        int yAxisLeftOffset = yAxisComponent.getOffsetLeft();
+        int yAxisRightOffset = yAxisComponent.getOffsetRight();
+        return new int[]{yAxisLeftOffset, yAxisRightOffset};
     }
 
     //--等分切割轴线

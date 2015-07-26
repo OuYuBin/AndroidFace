@@ -62,12 +62,12 @@ public class XAxis extends BaseAxis {
         mXAxisGridLinePaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mXAxisGridLinePaint.setColor(chartAxisProvider.getXGridColor(getComponent()));
 
-        int offset = FontUtil.calcFontHeight(fontStyle);
+        int offset = FontUtil.getFontHeight(fontStyle);
         for (int i = 0; i < labels.length; i++) {
             float x = positions[2 * i];
             if (x <= mViewPortManager.chartContentRight() && x >= mViewPortManager.chartContentLeft()) {
                 String label = labels[i];
-                canvas.drawText(label, positions[2 * i], mViewPortManager.chartContentBottom() + offset + 5, mXAxisLabelPaint);
+                canvas.drawText(label, positions[2 * i], mViewPortManager.chartContentBottom()+offset, mXAxisLabelPaint);
                 canvas.drawLine(positions[2 * i], mViewPortManager.chartContentBottom(), positions[2 * i], mViewPortManager.chartContentTop(), mXAxisGridLinePaint);
             }
         }

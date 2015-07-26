@@ -23,7 +23,7 @@ public class ChartComponentAdapterFactory {
         this.mChartView = chartView;
         //supportedChartCompontentAdapter.add(IXAxisComponentAdapter.class);
         //supportedChartCompontentAdapter.add(IChartComponentAdapter.class);
-       supportedChartCompontentAdapter.add(XAxisComponentAdapter.class);
+        supportedChartCompontentAdapter.add(XAxisComponentAdapter.class);
         supportedChartCompontentAdapter.add(YAxisComponentAdapter.class);
         supportedChartCompontentAdapter.add(LineChartComponentAdapter.class);
     }
@@ -34,18 +34,18 @@ public class ChartComponentAdapterFactory {
         IChartComponentAdapter chartComponentAdapter = null;
         if (object instanceof IChartComponent) {
             //--注入当前视图所携带的数据模型对象
-            ((IChartComponent) object).setChartDataSet(mChartView.getModel());
+            //((IChartComponent) object).setChartDataSet(mChartView.getModel());
 
             //--将界面相关自定义属性落入模型对象
             //--数据模型填充需要处理1.通过自定义
 
 
             //--根据属性名称通过annotation中的描述对属性值进行注入
-            Field[] fields = object.getClass().getFields();
+            Field[] fields = object.getClass().getDeclaredFields();
             Map typeArray = mChartView.getProperties();
             for (Field field : fields) {
                 TypeArrayAnnotation annotation = field.getAnnotation(TypeArrayAnnotation.class);
-                if(annotation!=null) {
+                if (annotation != null) {
                     String typeName = annotation.name();
                     Object value = typeArray.get(typeName);
                     if (value != null) {
@@ -72,5 +72,8 @@ public class ChartComponentAdapterFactory {
         return chartComponentAdapter;
     }
 
+    public IChartView getChartView() {
+        return mChartView;
+    }
 
 }

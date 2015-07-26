@@ -7,18 +7,9 @@ import cn.robin.aface.chart.component.IChartComponent;
  */
 public class BaseAxisComponentAdapter extends BaseChartComponentAdapter implements IXAxisComponentAdapter {
 
-    private String mLongestLabel;
-
 
     public BaseAxisComponentAdapter() {
         super();
     }
 
-    public String getLongestLabel() {
-        return mLongestLabel;
-    }
-
-    public void setLongestLabel(String longestLabel) {
-        this.mLongestLabel = longestLabel;
-    }
 }

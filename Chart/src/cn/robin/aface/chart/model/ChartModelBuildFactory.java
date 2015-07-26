@@ -36,7 +36,9 @@ public class ChartModelBuildFactory {
         //--此处需要重写,通过已存在的提供器完成向元件的适配
         //--根据用户自定义provider来完成自定义数据信息获取
         ILineChartContentProvider lineChartContentProvider = (ILineChartContentProvider) chartView.getChartContentProvider();
+
         ILineChartAxisProvider lineChartAxisProvider = (ILineChartAxisProvider) chartView.getChartAxisProvider();
+
 //        ILineChartStyleProvider lineChartLabelProvider = (ILineChartStyleProvider) chartView.getChartLabelProvider();
 
         //--如果发现开发人员未通过提供器完成属性设置,则需要通过工厂适配器层直接完成元件对象适配器的属性配置
@@ -44,7 +46,7 @@ public class ChartModelBuildFactory {
             chartView.setChartContentProvider(new AdapterFactoryChartContentProvider(chartView.getChartComponentAdapterFactory()));
         }
         //if (lineChartLabelProvider == null) {
-            //chartView.setChartlabelProvider(new AdapterFactoryChartLabelProvider(chartView.getChartComponentAdapterFactory()));
+        //chartView.setChartlabelProvider(new AdapterFactoryChartLabelProvider(chartView.getChartComponentAdapterFactory()));
         //}
         if (lineChartAxisProvider == null) {
             chartView.setChartAxisProvider(new AdapterFactoryChartAxisProvider(chartView.getChartComponentAdapterFactory()));

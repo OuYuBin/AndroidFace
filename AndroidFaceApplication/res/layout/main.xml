@@ -5,6 +5,6 @@
               android:layout_height="fill_parent">
     <cn.robin.aface.chart.view.LineChartView android:id="@+id/test"
                                              android:layout_width="fill_parent"
-                                             android:layout_height="fill_parent" lineChart:xAxisModulus="5"/>
+                                             android:layout_height="fill_parent" lineChart:xAxisModulus="15" lineChart:xAxisBottomOffset="10"/>
 </LinearLayout>
 

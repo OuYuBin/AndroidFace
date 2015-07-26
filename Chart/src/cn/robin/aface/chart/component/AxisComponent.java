@@ -9,14 +9,6 @@ import cn.robin.aface.core.runtime.IAdaptable;
  */
 public abstract class AxisComponent extends BaseChartComponent {
 
-    //protected int mOffsetTop;
-
-//    protected int mOffsetLeft;
-//
-//    protected int mOffsetRight;
-//
-//    protected int mOffsetBottom;
-
     protected FontStyle mFontStyle;
 
     public AxisComponent() {

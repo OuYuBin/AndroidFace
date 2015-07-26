@@ -46,16 +46,24 @@ public class BaseLineChart extends BaseChart {
     public void paintComponent(Canvas canvas) {
         lineChartContentProvider = (ILineChartContentProvider) getChartView().getChartContentProvider();
         lineChartAxisProvider = (ILineChartAxisProvider) getChartView().getChartAxisProvider();
-        float[] xAxisOffsets = lineChartAxisProvider.getXAxisOffsets(xAxis.getComponent());
-        float[] yAxisOffsets = lineChartAxisProvider.getYAxisOffsets(yAxis.getComponent());
-        FontStyle xAxisFontStyle = lineChartAxisProvider.getXAxisFontStyle(xAxis.getComponent());
-        FontStyle yAxisFontStyle = lineChartAxisProvider.getYAxisFontStyle(yAxis.getComponent());
-        float labelHeight = FontUtil.calcFontHeight(xAxisFontStyle);
-        String longestLabel=FontUtil.getTheLongestLabel(lineChartAxisProvider.getYAxisEntries(yAxis.getComponent()));
+        IChartComponent xAxisComponent = xAxis.getComponent();
+        xAxisComponent.setChartDataSet(getChartView().getModel());
+        int[] xAxisOffsets = lineChartAxisProvider.getXAxisOffsets(xAxisComponent);
+        FontStyle xAxisFontStyle = lineChartAxisProvider.getXAxisFontStyle(xAxisComponent);
+        IChartComponent yAxisComponent = yAxis.getComponent();
+        yAxisComponent.setChartDataSet(getChartView().getModel());
+        int[] yAxisOffsets = lineChartAxisProvider.getYAxisOffsets(yAxisComponent);
+        FontStyle yAxisFontStyle = lineChartAxisProvider.getYAxisFontStyle(yAxisComponent);
+        float labelHeight = FontUtil.getFontHeight(xAxisFontStyle);
+        String longestLabel = FontUtil.getTheLongestLabel(lineChartAxisProvider.getYAxisEntries(yAxisComponent));
         float labelWidth = FontUtil.calcFontWidth(yAxisFontStyle, longestLabel);
         mViewPortManager.restrainViewPort(yAxisOffsets[0] + labelWidth, xAxisOffsets[0], yAxisOffsets[1], xAxisOffsets[1] + labelHeight);
         mTransformer.prepareMatrixOffset(true);
-        mTransformer.prepareMatrixValuePx(0, lineChartContentProvider.getDeltaX(getComponent()), 0, lineChartContentProvider.getDeltaY(getComponent()));
+
+        IChartComponent lineChartComponent = getComponent();
+        lineChartComponent.setChartDataSet(getChartView().getModel());
+        mTransformer.prepareMatrixValuePx(0, lineChartContentProvider.getDeltaX(lineChartComponent), 0, lineChartContentProvider.getDeltaY(lineChartComponent));
+
         super.paintComponent(canvas);
         int clipRestoreCount = canvas.save();
         canvas.clipRect(getViewPortManager().getChartContentRect());

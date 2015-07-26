@@ -27,6 +27,7 @@ public class FontUtil {
         return (int) Math.ceil(fontMetrics.descent - fontMetrics.ascent);
     }
 
+    @Deprecated
     public static int calcFontHeight(FontStyle fontStyle) {
         int fontSize = fontStyle.getFontSize();
         Paint paint = new Paint();
@@ -47,14 +48,14 @@ public class FontUtil {
         return rect.width();
     }
 
-    public static String getTheLongestLabel(float[] values){
-        String longestLabel=null;
-        int maxLength=0;
-        for(float value:values){
-            int length=String.valueOf(value).length();
-            if(length>maxLength){
-                maxLength=length;
-                longestLabel=String.valueOf(value);
+    public static String getTheLongestLabel(float[] values) {
+        String longestLabel = null;
+        int maxLength = 0;
+        for (float value : values) {
+            int length = String.valueOf(value).length();
+            if (length > maxLength) {
+                maxLength = length;
+                longestLabel = String.valueOf(value);
             }
         }
 

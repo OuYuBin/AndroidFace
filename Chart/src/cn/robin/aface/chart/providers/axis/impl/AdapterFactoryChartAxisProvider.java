@@ -14,72 +14,75 @@ import cn.robin.aface.chart.providers.axis.ILineChartAxisProvider;
  */
 public class AdapterFactoryChartAxisProvider implements ILineChartAxisProvider {
 
-    ChartComponentAdapterFactory chartComponentAdapterFactory;
+    ChartComponentAdapterFactory mChartComponentAdapterFactory;
 
     public AdapterFactoryChartAxisProvider(ChartComponentAdapterFactory chartComponentAdapterFactory) {
-        this.chartComponentAdapterFactory = chartComponentAdapterFactory;
+        this.mChartComponentAdapterFactory = chartComponentAdapterFactory;
     }
 
+    @Override
     public int getXAxisModulus(Object object) {
-        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
         return xAxisComponentAdapter.getXAxisModulus(object);
     }
 
-    public String[] getXAxisEntries(Object object){
-        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+    @Override
+    public String[] getXAxisEntries(Object object) {
+        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
         return xAxisComponentAdapter.getEntries(object);
     }
 
-    public float[] getYAxisEntries(Object object){
-        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
+    @Override
+    public float[] getYAxisEntries(Object object) {
+        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
         return yAxisComponentAdapter.getEntries(object);
     }
 
     @Override
-    public float[] getXAxisOffsets(Object object) {
-        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+    public int[] getXAxisOffsets(Object object) {
+        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
         return xAxisComponentAdapter.getXAxisOffsets(object);
     }
 
     @Override
-    public float[] getYAxisOffsets(Object object) {
-        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
+    public int[] getYAxisOffsets(Object object) {
+        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
         return yAxisComponentAdapter.getYAxisOffsets(object);
     }
 
     @Override
     public FontStyle getXAxisFontStyle(Object object) {
-        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
         return xAxisComponentAdapter.getFontStyle(object);
     }
 
     @Override
     public FontStyle getYAxisFontStyle(Object object) {
-        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
+        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
         return yAxisComponentAdapter.getFontStyle(object);
     }
 
     @Override
     public int getXAxisColor(Object object) {
-        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
         return xAxisComponentAdapter.getColor(object);
     }
 
     @Override
     public int getYAxisColor(Object object) {
-        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
+        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
         return yAxisComponentAdapter.getColor(object);
     }
 
     @Override
     public int getXGridColor(Object object) {
-        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
+        XAxisComponentAdapter xAxisComponentAdapter = (XAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, XAxisComponentAdapter.class);
         return xAxisComponentAdapter.getGridColor(object);
     }
 
     @Override
     public int getYGridColor(Object object) {
-        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) chartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
+        YAxisComponentAdapter yAxisComponentAdapter = (YAxisComponentAdapter) mChartComponentAdapterFactory.adapter(object, YAxisComponentAdapter.class);
         return yAxisComponentAdapter.getGridColor(object);
     }
 

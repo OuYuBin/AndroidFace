@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="xAxisLeftOffset" format="dimension"/>
-    <attr name="xAxisRightOffset" format="dimension"/>
-    <attr name="xAxisTopOffset" format="dimension"/>
-    <attr name="xAxisDownOffset" format="dimension"/>
-    <attr name="xAxisFontSize" format="dimension"/>
+    <attr name="xAxisTopOffset" format="integer"/>
+    <attr name="xAxisBottomOffset" format="integer"/>
+    <attr name="yAxisLeftOffset" format="integer"/>
+    <attr name="yAxisRightOffset" format="integer"/>
+    <attr name="xAxisFontSize" format="integer"/>
+    <attr name="yAxisFontSize" format="integer"/>
     <attr name="xAxisModulus" format="integer"/>
 
     <declare-styleable name="LineChart">
-        <attr name="xAxisLeftOffset"/>
-        <attr name="xAxisRightOffset"/>
         <attr name="xAxisTopOffset"/>
-        <attr name="xAxisDownOffset"/>
+        <attr name="xAxisBottomOffset"/>
+        <attr name="yAxisLeftOffset"/>
+        <attr name="yAxisRightOffset"/>
         <attr name="xAxisFontSize"/>
+        <attr name="yAxisFontSize"/>
         <attr name="xAxisModulus"/>
     </declare-styleable>
 </resources>

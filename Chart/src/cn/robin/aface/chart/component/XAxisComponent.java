@@ -13,89 +13,53 @@ import java.util.List;
  */
 public class XAxisComponent extends AxisComponent {
 
-    private float mXMinVal;
 
-    private float mXMaxVal;
+    //--上边距
+    @TypeArrayAnnotation(name = "xAxisTopOffset", desc = "XAxisTopOffset", type = "Integer")
+    protected int mOffsetTop;
+
+    //--下边距
+    @TypeArrayAnnotation(name = "xAxisBottomOffset", desc = "XAxisBottomOffset", type = "Integer")
+    protected int mOffsetBottom;
+
+    //--间隔系数
+    @TypeArrayAnnotation(name = "xAxisModulus", desc = "XAxisModulus", type = "Integer")
+    private int mModulus;
+
+    //--字体大小
+    @TypeArrayAnnotation(name = "xAxisFontSize", desc = "XAxisFontSize", type = "Integer")
+    private int mFontSize;
+
 
     private int mColor;
 
     private int mGridColor;
 
-    //--间隔系数
-    @TypeArrayAnnotation(name = "modulus", desc = "xAxisModulus", type = "Integer")
-    private int mModulus;
-
-    //@TypeArrayAnnotation(name = "bottomOffset", desc = "BottomOffset", type = "float[]")
-    private float[] mOffsets;
-
-    //@TypeArrayAnnotation(name = "fontSize", desc = "xAxisFontSize", type = "Integer")
-    private  int mFontSize;
-
-
     public XAxisComponent() {
-        //super(adapter);
-    }
-
-    public int getColor(){
-        return Color.WHITE;
-    }
-
-    public int getGridColor(){
-        return Color.WHITE;
     }
 
     public int getModulus() {
-        return 10;
+        return mModulus;
     }
 
-    public float[] getOffsets() {
-        float[] offsets = new float[]{
-                0f, 20f
-        };
-        return offsets;
+    public FontStyle getFontStyle() {
+        return new FontStyle(mFontSize);
     }
 
-    public FontStyle getFontStyle(){
-        return new FontStyle(18);
+    public int getOffsetBottom() {
+        return mOffsetBottom;
     }
 
+    public int getOffsetTop() {
+        return mOffsetTop;
+    }
 
-//    public void setModulus(float modulus) {
-//        this.mModulus = modulus;
-//    }
-//
-//
-//    public float getXMinVal() {
-//        return mXMinVal;
-//    }
-//
-//    public void setXMinVal(float xMinVal) {
-//        this.mXMinVal = xMinVal;
-//    }
-//
-//    public float getXMaxVal() {
-//        return mXMaxVal;
-//    }
-//
-//    public void setXMaxVal(float xMaxVal) {
-//        this.mXMaxVal = xMaxVal;
-//    }
-//
-//    public List<String> getEntries() {
-//        return mEntries;
-//    }
-//
-//    public void setEntries(List<String> entries) {
-//        this.mEntries = entries;
-//    }
-//
-//    @Override
-//    public Object getAdapter(Class adapter) {
-//        if (adapter.equals(XAxisComponentAdapter.class)) {
-//            return new XAxisComponentAdapter(this);
-//        }
-//        return null;
-//    }
+    public int getColor() {
+        return Color.WHITE;
+    }
 
+    public int getGridColor() {
+        return Color.WHITE;
+    }
 
 }
